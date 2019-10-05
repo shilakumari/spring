@@ -1,4 +1,4 @@
-package com.demo._5InternationalizationAndLocalization._3MultipleThemes;
+package com.tutorial.spring.mvc._5InternationalizationAndLocalization._3MultipleThemes;
 
 import java.util.Date;
 

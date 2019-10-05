@@ -1,4 +1,4 @@
-package com.demo._7WebService._1Introduction;
+package com.tutorial.spring.mvc._7WebService._1Introduction;
 
 public class Address {
 

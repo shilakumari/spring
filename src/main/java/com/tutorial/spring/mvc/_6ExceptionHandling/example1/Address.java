@@ -1,4 +1,4 @@
-package com.demo._6ExceptionHandling.example1;
+package com.tutorial.spring.mvc._6ExceptionHandling.example1;
 
 public class Address {
 

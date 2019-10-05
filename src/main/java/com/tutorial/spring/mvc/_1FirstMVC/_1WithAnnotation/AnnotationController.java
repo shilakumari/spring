@@ -1,4 +1,4 @@
-package com.demo._1FirstMVC._1WithAnnotation;
+package com.tutorial.spring.mvc._1FirstMVC._1WithAnnotation;
 
 import java.util.Map;
 import org.springframework.stereotype.Controller;

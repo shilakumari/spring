@@ -1,4 +1,4 @@
-package com.demo._3formValidation;
+package com.tutorial.spring.mvc._3formValidation;
 
 public class Address {
 

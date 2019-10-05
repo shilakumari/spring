@@ -1,4 +1,4 @@
-package com.demo._1FirstMVC;
+package com.tutorial.spring.mvc._1FirstMVC;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

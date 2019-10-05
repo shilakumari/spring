@@ -1,6 +1,7 @@
-package com.demo._5InternationalizationAndLocalization._2Example;
+package com.tutorial.spring.mvc._5InternationalizationAndLocalization._2Example;
 
 import java.util.Date;
+
 
 import java.util.List;
 

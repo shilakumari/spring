@@ -1,4 +1,4 @@
-package com.demo._5InternationalizationAndLocalization._1Example;
+package com.tutorial.spring.mvc._5InternationalizationAndLocalization._1Example;
 
 public class Address {
 

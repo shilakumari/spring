@@ -247,3 +247,5 @@ public class HelloController{
 		model.addAttribute("mobile", "mobileNumber");
 		return "buyer/mobilenoEntry";
 	}
+
+	https://stackoverflow.com/questions/13533700/maven-dependency-spring-web-vs-spring-webmvc

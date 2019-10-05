@@ -1,4 +1,4 @@
-package com.demo._4Interceptor;
+package com.tutorial.spring.mvc._4Interceptor;
 
 import java.io.IOException;
 import java.util.Calendar;

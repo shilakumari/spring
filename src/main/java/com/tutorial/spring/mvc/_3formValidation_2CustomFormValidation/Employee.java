@@ -1,4 +1,4 @@
-package com.demo._3formValidation_2CustomFormValidation;
+package com.tutorial.spring.mvc._3formValidation_2CustomFormValidation;
 
 import java.util.Date;
 

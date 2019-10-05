@@ -1,4 +1,4 @@
-package com.demo._2FormSubmission;
+package com.tutorial.spring.mvc._2FormSubmission;
 
 import java.util.Date;
 import java.util.List;

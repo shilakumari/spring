@@ -1,4 +1,4 @@
-package com.demo._3formValidation;
+package com.tutorial.spring.mvc._3formValidation;
 
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;

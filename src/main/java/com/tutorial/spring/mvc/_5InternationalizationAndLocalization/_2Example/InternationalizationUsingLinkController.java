@@ -1,4 +1,4 @@
-package com.demo._5InternationalizationAndLocalization._2Example;
+package com.tutorial.spring.mvc._5InternationalizationAndLocalization._2Example;
 
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;

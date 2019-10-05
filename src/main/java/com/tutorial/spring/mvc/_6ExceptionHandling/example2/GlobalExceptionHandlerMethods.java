@@ -1,4 +1,4 @@
-package com.demo._6ExceptionHandling.example2;
+package com.tutorial.spring.mvc._6ExceptionHandling.example2;
 
 import java.io.IOException;
 

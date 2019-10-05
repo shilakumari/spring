@@ -1,4 +1,4 @@
-package com.demo._4Interceptor;
+package com.tutorial.spring.mvc._4Interceptor;
 
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;

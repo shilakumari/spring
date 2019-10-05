@@ -1,6 +1,7 @@
-package com.demo._7WebService._1Introduction;
+package com.tutorial.spring.mvc._7WebService._1Introduction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
