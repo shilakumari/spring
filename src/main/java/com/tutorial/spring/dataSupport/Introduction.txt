@@ -1,0 +1,31 @@
+Introduction to Spring Data and Setting Up
+
+
+Apache Derby
+It is very lightweight in memory database. 
+It is very easy to setup and takes less resources.
+It's perfect for testing out new concept(so that using "Derby" database).
+(bin contains program to start and stop database.
+"lib" contains jars that we have to include.)
+
+Setup database derby
+	(1) Download derby zip file
+	(2) Set environment variables
+			DERBY_HOME
+			PATH till bin
+	(3) Start Derby database
+			(1) In network server mode	
+				1. Start server
+						startNetworkServer.bat
+				2. Start client	
+						ij.bat
+						connect to server using connection url
+					 		connect 'jdbc:derby://localhost:1527/dbSpringData;create=true';
+					 		
+					 	CREATE TABLE circle(id integer, name char(50));
+					 	select * from circle;
+					 	insert into circle values(1, 'First circle');
+			(2) In embedded mode
+
+
+			

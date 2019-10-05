@@ -1,0 +1,18 @@
+Installation & Setup
+	1)Create Java Project
+	2) Create User Library for Spring jars & commons-logging jar 
+Download spring distribution zip to the link:
+http://repo.spring.io/release/org/springframework/spring/
+and one more jar:
+commons-logging-1.1.3.jar
+http://commons.apache.org/proper/commons-logging_logging.cgi
+
+
+In Spring world, every java object is called bean.
+mySpringConfig.xml may be put in any java package.
+
+FirstSpringApplication
+a)Using Application COntext
+	Example1: com.kumari.khusi._1FirstSpringApplication._1usingApplicationContext
+b)Using Bean Factory
+	Example2: com.kumari.khusi._1FirstSpringApplication._2usingFactoryBean;

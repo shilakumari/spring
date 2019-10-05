@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="triangle11"
+		class="com.kumari.khusi._12UsingApplicationContextAware._1BeanNameAware.Triangle"
+		autowire="constructor" scope='prototype'>
+		<property name="pointA" ref="pointA">
+		</property>
+		<property name="pointB" ref="pointB">
+		</property>
+		<property name="pointC" ref="pointC"></property>
+	</bean>
+
+	<bean id="pointA"
+		class="com.kumari.khusi._12UsingApplicationContextAware._1BeanNameAware.Point"
+		scope="prototype">
+		<property name="x" value="0"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<bean id="pointB"
+		class="com.kumari.khusi._12UsingApplicationContextAware._1BeanNameAware.Point">
+		<property name="x" value="10"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<bean id="pointC"
+		class="com.kumari.khusi._12UsingApplicationContextAware._1BeanNameAware.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="15"></property>
+	</bean>
+
+</beans>  

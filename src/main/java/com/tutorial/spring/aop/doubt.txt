@@ -1,0 +1,4 @@
+Joinpoint: in spring method only... using aspectj we can use on variable also as a jointpoin
+
+
+Using AOP proxy make a project with reflection api of spring AOP functionality static & dynamicaly.

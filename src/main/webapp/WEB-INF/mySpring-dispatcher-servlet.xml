@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd
+   http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<!-- <bean id="HandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" 
+		/> <bean name="/welcome.xml" class="com.demo._1FirstMVC.HelloController" 
+		/> -->
+
+	<context:component-scan base-package="com.demo.*" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/interceptorFormValidation/admissionForm10.html" />
+			<bean class="com.demo._4Interceptor.DayOfWeekBasedAccessInterceptor" />
+		</mvc:interceptor>
+
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="siteLanguage" /> 
+		</bean>
+
+		<!--this interceptor to support multiple themes -->
+		 <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+			<property name="paramName" value="siteTheme" />
+		</bean> 
+	</mvc:interceptors>
+
+
+	<mvc:annotation-driven />
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	<!-- Adding bean to access employeemessages.properties file -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/employeemessages" />
+		<!-- <property name="cacheSeconds" value="1"/> -->
+	</bean>
+
+	 <bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+ 
+
+	<mvc:resources mapping="/resources/**" location="/WEB-INF/" />
+
+	<!--these two beans to support multiple themes -->
+	<bean id="themeSource"
+		class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+		<property name="basenamePrefix" value="theme-" />
+	</bean>
+	<bean id="themeResolver"
+		class="org.springframework.web.servlet.theme.CookieThemeResolver">
+		<property name="defaultThemeName" value="green" />
+	</bean>
+
+	<!-- If not using "GlobalExceptionHandlerMethod.java" file then use below 
+		bean "simpleMappingExceptionResolver".because one of then is optional -->
+	<!-- <bean id="simpleMappingExceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<map>
+				<entry key="NullPointerException" value="nullPointerException" />
+				<entry key="IOException" value="ioException" />
+			</map>
+		</property>
+
+		This is the default error web page or the generic error web page
+		<property name="defaultErrorView" value="exception" />
+
+		Name of logger to use to log exceptions. Unset by default, so logging 
+			disabled
+		<property name="warnLogCategory" value="MVCLogger" />
+
+	</bean> -->
+
+
+
+</beans>

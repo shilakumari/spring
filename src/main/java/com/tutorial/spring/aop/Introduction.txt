@@ -1,0 +1,218 @@
+AOP:Aspect Oriented Programming
+AOP is not just a feature, it is a model of programming like OOP.
+
+Programming Model
+	Functional Programming
+	Object Oriented Programming
+	Aspect Oriented Programming
+
+Functional Programming
+	Function calls each others
+	Problem: Complexity
+
+Object Oriented Programming
+Objects communicate
+Advantage: Complexity
+
+Problem: 
+1)Not all of task we want to program to do , can be classified as an Object
+2)To many relationships to cross-cutting objects
+
+In more than one object, some piece of code matched. To overcome to re-writing same code in every object, 
+	now writing in a separate class and then using this class in every object.
+	But using this, many problems occur. Like Logging Case Problem:
+		1)Non- business logic have too many dependency
+		2)Too Many relationships to the cross-cutting objects
+		3)Code is still required in all methods
+		4)Cannot all be changed at once without creating better design using interface
+
+
+
+Cross Cutting Concerns
+	Logging
+	Transactions
+	Security
+
+Q)Differences b/w concern and cross-cutting concern in spring AoP.
+Concern
+	The concern is behavior that we want to have in a particular module of an application. 
+	A concern may be defined as a functionality we want to implement.
+Cross-cutting concern
+	The cross-cutting concern is a concern which is applicable throughout the application and it affects the entire application. 
+	For example, logging, security and data transfer is applicable for every module of an application hence they are cross-cutting concerns.
+
+Aspects
+Example: Logging Aspect
+Aspect Configuration
+
+
+Wrapping Aspects around Methods
+	Aspect Code->Target Methods-->Aspect Code
+
+Steps in AOP
+	Write Aspects(Cross Cutting Concerns)
+	Configure where the aspects apply
+
+
+Setting Up AOP Dependencies
+1)Spring jars
+2)aspectJ jars
+	aspectj jar
+	aspectweaver jar
+3)aopallience jar
+4)cgilib jar
+5)asm jar
+
+Namespace
+xmlns:aop="http://www.springframework.org/schema/aop"
+
+
+
+
+FirstAOPApplication:
+	Circle.java
+	Triangle.java
+	ShapeService.java
+	TestSpringAopProject.java
+	springAopConfig.xml
+	MySampleAspect.java
+	
+	@Aspect
+	@Before("execution(public String getName())")
+	<aop:aspectj-autoproxy />
+
+
+
+
+
+
+Aspect
+Aspect is a class with additional privileges/advantages.
+Advice
+Advice get executed only for the call that we make in the program & not executed when spring container calls during bean initialization & DI.
+
+Example: MySampleAspect.java
+Single advice method to diff points
+@Aspect
+public class MySampleAspect {
+	@Before(value="execution(public String com.aop._1BasicExample._1usingXML.Circle.getName())")
+	// @Before("execution(public String getName())")
+	// @Before("execution(public String get*())")
+	// @Before("execution(public * get*())")
+	// @Before("execution(       * get*())")// 0 argument
+	// @Before("execution(       * get*(*))")//1 or more argument
+	// @Before("execution(       * get*(..))")//0 or more argument
+	// @Before("execution( * com.aop._1BasicExample._1usingXML.*.get*(..))")
+	// @Before("execution( * com.aop._1BasicExample._1usingXML.*Service.get*(..))")
+	public void sampleAdvice() {
+		System.out.println("Inside sampleAdvice() of MySampleAspect");
+	}
+}
+
+Multiple advice methods to same points
+	Using PointCuts
+	PointCuts expression:execution(public String getName())
+	Few More PointCuts expressions using
+		execution
+		within
+		args
+	Convention: Combine pointcuts
+Example: MySampleAspect2.java
+Example: MySampleAspect3.java
+
+Wildcard Expressions: Single advice for multiple JoinPoints
+PointCuts Expressions: //One JoinPoints for multiple advice
+
+
+
+JoinPoint: all the places where we can apply advice(only methods in spring,variable in aspectj )
+	JoinPoint is an argument that Spring passes.
+	JoinPoint has the information about actual method call that trigger the Advice.
+	Hence to get the information about this method we use JoinPoint.
+Example: MySampleAspect4.java
+
+
+
+
+
+Advice is called when we call methods(Joinpoints).
+Advice is not called when spring container initialized the bean.
+
+Advice Types: 
+@Before: value attribute
+@After: executed with or without exception
+@AfterReturning: Without exception, pointcut & returning attribute
+@AfterThrowing: With Exception, pointcut & throwing attribute
+@Around:
+	Advice must have at least one argument ProceedingJoinPoint, 
+	proceedingJoinPoint.proceed();
+	 
+	Most powerful advice type, 
+	able to modify return object from target method, 
+	A local variable is thread safe which was not possible if @before & @after we use
+	returnValue =  	proceedingJoinPoint.proceed();
+	Example: MySampleAspect7.java
+	
+	
+We should use sufficient & necessary advice type.
+Example: MySampleAspect5.java
+Example: MySampleAspect6.java
+Example: MySampleAspect7.java
+
+Advice Type Arguments:
+	Execution: Methods
+	Within: classes	
+	args: targets
+
+Advice Arguments
+	JoinPoints
+	Object
+	Exception
+
+
+
+
+Naming Conventions
+	We put aspects in separate package.
+	It'll be easy to write @Pointcut expressions, if we follow conventions for packages and classes. Like in following @Before Advice:
+	@Before("execution( * com.aop._1BasicExample._1usingXML.*Service.get*(..))")
+	  
+Custom Advice Annotation
+When combine pointcuts seems very difficult for our need then we write custom advice annotation.
+	public @interface MyLoggable {}
+	@Around("@annotation(com.aop._1BasicExample._1usingXML.MyLoggable)")
+	@MyLoggable
+	public String getName() {
+		System.out.println("inside Circle:getName()");
+		return name;
+	}
+It also improve readability.
+Example: MySampleAspect8.java
+
+
+
+
+
+AOP XML Configuration
+Example: MySampleAspect9.java
+<bean id="mySampleAspectBean9" class="com.aop._1BasicExample._1usingXML.MySampleAspect9"></bean>
+<aop:config>
+		<aop:aspect id="abc" ref="mySampleAspectBean9">
+			<aop:pointcut expression="execution(* getName())" id="allGetters" />
+			<aop:around method="myAroundAdvice"  pointcut-ref="allGetters"/>
+			<!--<aop:around method="myAroundAdvice"  pointcut="execution(* getName())"/> -->
+			<!-- <aop:before method="" arg-names=""/> ?????????????-->
+		</aop:aspect>
+</aop:config>
+XML configuration Advantage:
+1) Legacy code written in XML configuration
+2) When we treat aspect as a configuration(LoggingAspect) rather than functionality(TransactionalAspect) & 
+	in this case only Re-deployment will be needed.
+Annotation Advantage: 
+	Simpler & 
+	Readable
+
+AOP Proxies
+Using proxy object spring in Object oriented programming, implements concepts of Aspect oriented programming.
+Example: MySpringAopTest2.java
+

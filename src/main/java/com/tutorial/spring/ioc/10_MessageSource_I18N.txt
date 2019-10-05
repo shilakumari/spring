@@ -1,0 +1,29 @@
+MessageResource And I18N  (It can be used with ApplicationContext only)
+
+1)
+myMessage.properties
+greeting=hello!
+center.point=Center point co-ordinates are {0} and {1}.
+
+2)
+ResourceBundleMessageSource interface
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>com//kumari//khusi/_16messageSourceAndI18N/_1messageSource/myMessage</value>
+			</list>
+		</property>
+</bean>
+
+
+3)
+@Autowired
+private MessageSource messageSource;
+
+4)
+String centerPointMessage = messageSource.getMessage("center.point", new Object[] { 11, 22 },"Default centerPointMessage", null);
+String centerPointMessage = context.getMessage("center.point", new Object[] { 11, 22 },"Default centerPointMessage", null);
+
+
+
+I18N example

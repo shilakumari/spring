@@ -1,0 +1,85 @@
+Introduction to Spring Data and Setting Up
+
+
+
+
+
+Using JDBC without Spring
+Example:com.springdata._1usingJDBCWithoutSpring.JdbcDemo
+
+
+
+
+
+Adding Spring and DataSource Configuration
+Example:com.springdata._2usingSpringAndDataSourceConfiguration.UsingSprinDemo
+	@Autowired
+	MyDataSource myDataSource;
+	@Autowired
+	DataSource dataSource;
+	@Autowired
+	BasicDataSource dbcpDataSource;
+	@Autowired
+	DataSource dataSource2;
+
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations" value="/com/springdata/_2usingSpringAndDataSourceConfiguration/mySpring.properties"></property>
+</bean>
+
+Using dbcp data source
+(dbcp: database connection pool)
+Advantages - we can add additional pooling related properties.
+To get initial minimum connection or initial size of connection then use - initialSize.
+To get initial maximum connection then use - maxTotal.
+
+<bean id="dbcpDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"></property>
+		<property name="url" value="jdbc:derby://localhost:1527//dbSpringData"></property>
+		<property name="initialSize" value="2"></property>
+		<property name="maxTotal" value="5"></property>
+</bean>
+
+To Use dbcp data source we need following to jars:
+	commons-dbcp2-2.6.0.jar
+	commons-pool2-2.6.2.jar
+
+
+
+
+
+Using JdbcTemplate
+Example:com.springdata._3JDBCTemplate._1firstExample.UsingSprinDemo.java
+<bean id="jdbcTemplate2" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
+		<property name="dataSource" ref="dataSource2"></property>
+</bean>
+Returning Other Data-types from JdbcTemplate 
+Parameterized query using JdbcTemplate
+Performing Write Operations with JdbcTemplate 
+	update()- Used for insert, update,delete, call stored procedure
+	execute()-For DDL query
+Implementing RowMapper interface & use JdbcTemplate
+: Provides logic for mapping.
+Example:com.springdata._4ImplementingRowMapper.UsingSprinDemo.java
+
+
+JdbcTemplate: Support ? parameter only
+NamedParameterJDBCTemplate: support named parameter only
+SimpleJdbcTemplate: suppoert both ? & named parameter & many more features also present
+
+
+
+
+
+
+DAO Support Classes
+
+
+
+
+
+Using HIbernate with Spring
+  
+ 
+ 
+ 
+ 

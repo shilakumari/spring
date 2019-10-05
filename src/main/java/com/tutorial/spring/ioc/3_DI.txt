@@ -1,0 +1,124 @@
+Dependency Injection
+	
+	
+Problem if we do not use dependency injection
+	Tight Coupling
+Example:
+class Restaurant{
+	Tea tea = new Tea();
+	public void prepareHotDrink{
+		tea prepareTea();
+	}
+}
+class Tea{
+	public void prepareTea(){
+		//code to prepare tea
+	}
+}
+Problem:
+(1) Replacing ‘Tea’ class with another class ‘ExpressTea’ class.
+(2) Modifying the Tea class like parameterising its constructor
+(3) We cannot test Restaurant class without including Tea class
+All problems are only for one reason ->  Restaurent class has a direct dependency on Tea class.
+Restaurant class so much tightly coupled to the tea class.
+To overcome such problems:
+	If Restaurant class just uses the Tea object without mentioning Tea class anywhere in it - we can overcome all such problems.
+
+
+A real Life Analogy
+	Prepare Coffee itself or drink at Coffee Shop
+
+making coffee --> it's depend on many other objects such as sugar, milk, coffee.
+outsource the task of handling all dependencies of an object to an expert(some third party program)
+when the Restaurant object is created, the tea object will be created and provided to it from outside by some third party program
+
+Dependency Injection(DI)
+	decouple the objects.
+	Using DI we achieve Loose coupling among components.
+	
+	
+
+
+Type of DI
+	<bean id="restaurantBean" class="">
+	Constructor DI
+	Setter DI
+		setter method way
+		
+Injecting a value into a bean property
+1)Inject String
+	a)Setter DI
+		<property> tag
+		name attribute
+		value attribute
+		Example:com.kumari.khusi._2InjectString._1viaSetterDI
+	b)Constructor DI
+		<constructor-arg> tag
+		name attribute
+		value attribute
+		Example: com.kumari.khusi._2InjectString._2viaConstructorDI._1nameAttribute
+		
+		type attribute
+		index attribute
+		Example:com.kumari.khusi._2InjectString._2viaConstructorDI._2typeIndexAttribute
+		
+2)Inject Object
+	a)Setter DI
+		ref attribute
+		Example: com.kumari.khusi._3InjectObject._1viaSetterDI
+		Example:com.kumari.khusi._3InjectObject._1viaSetterDI._2usingInterface
+		
+		Id-ref tag 
+		inner beans
+		Alias tag: Alias & name attribute: different names to the same bean
+		Example:com.kumari.khusi._3InjectObject._1viaSetterDI._3innerBeansAliasesIdref
+	b)Constructor DI
+		ref attribute
+		Example:com.kumari.khusi._3InjectObject._2viaConstructorDI
+		Example: com.kumari.khusi._3InjectObject._2viaConstructorDI._2usingInterface
+		
+3)Inject Collection(Set,list,Map,Bag)
+	a)Setter DI
+	List
+		List of String
+			list and value tag
+			Example:com.kumari.khusi._4InjectCollection.list._1viaSetterDI
+		List of Object
+		List of Collection
+	Set
+	Map
+	Bag
+	b)Constructor DI
+	List
+		List of String
+			list and value tag
+			Example:com.kumari.khusi._4InjectCollection.list._2viaContructorDI
+		List of Object
+		List of Collection
+	Set
+	Map
+	Bag
+
+
+Constructor Injection									Setter Injection
+1)	No Partial Injection								Partial Injection
+2)	Desn't override the setter property					Overrides the constructor property if both are defined.
+3)	Creates new instance if any modification occurs		Doesn't create new instance if you change the property value
+4)	Better for too many properties						Better for few properties.
+
+
+
+idref:
+idref in spring is to pass the id of a bean to another bean. 
+This id must be string. And there must a bean with that name. 
+It ensures at deployment time that bean with that name exists otherwise it will throw error. 
+Example- a bean with name vns of the class City. 
+		 And we are configuring another bean of Student class with name student. 
+		 Now we will pass an id as vns to the student bean by idref. 
+<property name="idRef">
+			<idref bean="teaBean" />
+</property>
+restaurant = (Restaurant) context.getBean("restaurantBean");
+System.out.println(restaurant.getIdRef());//teaBean
+Tea tea=(Tea) context.getBean(restaurant.getIdRef());
+System.out.println(tea);

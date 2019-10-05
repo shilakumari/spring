@@ -1,0 +1,249 @@
+MVC(Model View Controller)
+MVC stands for Model View Controller architecture.
+	It is simply guideline that says how we should write code for developing application having UI.
+	It says we should separate out PRESENTATION from BUSINESS LOGIC. Where 
+		PRESENTATION means UI building code & 
+		BUSINESS LOGIC means some code which is generating data by applying some logic.
+	
+It says application should be divided into the following three components:
+	model - represents data
+	view - represents UI part
+	controller - manage the application flow,makes a call to some sort of service producing model and then passes to the model to the view.
+
+
+A web application developed using Servlet technology 
+	Client/Browser<-->Request/Response<-->Servlet in WebServer
+	HTML code embedded into Java code = A typical Servlet
+
+A web application developed using JSP technology 
+	Client/Browser<-->Request/Response<-->JSP in WebServer
+	Java code embedded into Html code = A typical JSP page
+
+In both above cases:
+	It is difficult to work independently for UI developer and business logic developer.
+	To overcome to this problem, we use spring MVC.
+
+
+Model
+	java object that hold data is called as Model.
+	Model is not just the data, it can be any logic too which is generating data.
+View(HTML code displaying model object)
+Business services: Java objects having some business logic to produce model object.
+
+
+
+Spring MVC 
+Spring MVC is a web application development framework based on MVC architecture.
+	 								Handler Mapping
+										 |		   		 java object
+client/browser->Request using url --> Front Controller <------------> Controller
+									   |		|
+		 (JSP, Velocity, FreeMarker)View 	View Resolver
+
+client/browser-->Request-->Front Controller
+Front Controller<-->Handler Mapping
+Front Controller<-->Controller
+Front Controller<-->View Resolver
+Front Controller<->View
+Front Controller-->Response-->client/browser
+
+Front Controller(Dispatcher servlet)
+	It receives the request from client/browser.
+	It is the main part which control the complete application flow with the help of many helper component.
+	In last it send the response back to the client/browser. 
+Handler mapping:-
+	It will scan the URL and tells exact address of the component who can generate data(or model) for this web page request.
+Controller:
+	It prepares data, creates a java object to hold this data. (It may take help of other Java classes if required to do his job.)
+	It may contain some business logic to generate data or 
+	it make-it data state-away from the database or
+	also it may call some other Java classes to do this job. 
+	It returns view name.
+View Resolver
+	It resolve the location or path of view.
+View(Final response guy)
+	It simply retrieve data from the Java object and
+	puts it into HTML code and
+	return to the Front Controller.
+Front Controller-->Response-->client/browser
+ 
+	
+
+
+
+
+Installation and setup using an Eclipse IDE.
+1)Download spring distribution zip containing all required jars from this link:
+	http://repo.spring.io/release/org/springframework/spring/
+2)Download commons-logging.jar from this link:
+	http://commons.apache.org/proper/commons-logging/download_logging.cgi
+3)Configure Tomcat
+	a)Add inside tomcat
+	b)Properties>TargetRuntime>Check Apache Tomcat
+	
+
+
+First Spring MVC Web Application
+1) modify web.xml file
+2) Create spring-dispatcher-servlet.xml
+3) HelloController.java class (A Controller)
+4) HelloPage.jsp file (A View)
+
+
+
+1) modify web.xml file
+<web-app>
+<servlet>
+<servlet-name>spring-dispatcher</servlet-name>
+<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>spring-dispatcher</servlet-name>
+<url-pattern>/</url-pattern>
+</servlet-mapping>
+</web-app>
+
+All URL request to the web application should be mapped to the spring mvc framework for the processing.
+
+<url-pattern>/</url-pattern>
+Any url request mapped by "/" to the front controller(or, to the Dispatcher servlet).
+
+<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+Here, taking complete responsibility to processing the url request. 
+And sending back to the client's browser (with the help of all helper, those are around it).
+
+
+2) Create spring-dispatcher-servlet.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd
+   http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+<bean id="HandlerMapping" class="org.springframework.web.servlet.handler.Handler.BeanNameUrlHandlerMapping"/>
+
+<bean name="/welcome.html" class="com.demo._1FirstMVC.HelloContrller"/> 
+
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix">
+		<value>/WEB-INF/</value>
+	</property>
+	<property name="suffix">
+		<value>.jsp</value>
+	</property>
+</bean>
+
+3) HelloController.java class (A Controller)
+class HelloController extends AbstractController{
+	protected MobileAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		MobileAndView  mobileAndView  = new MobileAndView("HelloPge");
+		mobileAndView.addObject("welcomeMessage", "Hi user, welcome to the first spring MVC Application");
+		return mobileAndView;
+}}
+
+HandlerMapping matches the incoming url pattern with <bean> name of the Controller class which provided in "spring-dispatcher-servlet.xml".
+If its find any bean pattern matching with the incoming url request, 
+	then it suggest to front controller to make a call to that controller class.
+
+"viewResolver"  prepare the exact location of the view, which is present in the project  using the "prefix" and "suffix" value.
+
+${welcomeMessage} = passing value of welcomeMessage variable to the HelloController.java class (A Controller)
+
+4) HelloPage.jsp
+	<html><body>
+	<h1>First Spring MVC Application Demo</h1><h2>${welcomeMessage}</h2>
+	</body></html>
+
+
+
+
+
+
+
+
+
+THERE ARE TWO WAY OF WRITING CONTROLLER CLASS
+(1) without using annotation in Controller class.
+ Need to extend "AbstractController" class.
+class HelloController extends AbstractController{}
+
+(2) using annotations in your Controller class
+No need to extend "AbstractController" class.
+No need to put entry in "spring-dispatcher-servlet.xml".
+
+@Controller
+class HelloController {
+	@RequestMapping("/welcome")
+	ModelAndView model = new ModelAndView("HelloPage");
+	model.addObject("welcomeMessage","hello world");
+	return model;
+}
+Putting all entry of "Controller" classes in "spring-dispatcher-servlet.xml" using :
+<context:component-scan base-package="package name">
+<context:component-scan> identify that, you have used annotation based Controller class in that package.
+
+
+
+
+
+
+
+
+
+
+Multi-action Controller class
+	Any Controller class, having more than one requestHandler method in it, called multiactionController class.
+@Controller
+public class HelloController{
+	@RequestMapping("/welcome")
+	public ModelAndView helloWorld(){
+		ModelAndView model= new ModelAndView("HelloPage");
+		model.addObject("msg", "hello world");
+		return model;
+	}
+	@RequestMapping("/hi")
+	public ModelAndView helloWorld(){
+		ModelAndView model= new ModelAndView("HelloPage");
+		model.addObject("msg", "hi world");
+		return model;
+	}
+}
+
+we can use @RequestMapping annotation at class level also.
+@Controller
+@RequestMapping("/greet")
+public class HelloController{
+	@RequestMapping("/welcome")
+	public ModelAndView helloWorld(){
+		ModelAndView model= new ModelAndView("HelloPage");
+		model.addObject("msg", "hello world");
+		return model;
+	}
+}
+
+
+
+
+
+using @RequestMapping("/welcome/countryName/userName")
+@Controller
+public class HelloController{
+	@RequestMapping("/welcome/countryName/userName")
+	public ModelAndView helloWorld(){
+		ModelAndView model= new ModelAndView("HelloPage");
+		model.addObject("msg", "hello world");
+		return model;
+	}
+}
+
+@RequestMapping("/mobilenoEntry")
+	public String getModelAndViewOfMobilenoEntry(Model model) throws Exception {
+		model.addAttribute("mobile", "mobileNumber");
+		return "buyer/mobilenoEntry";
+	}

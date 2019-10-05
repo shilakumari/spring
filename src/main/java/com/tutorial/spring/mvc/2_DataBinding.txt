@@ -1,0 +1,182 @@
+Data Binding related Annotation
+	@PathVariable
+	@RequestParam
+	@ModelAttribute
+
+@PathVariable annotation
+If we want to retrieve the value of "{userName}" the incoming request on url,
+using - @PathVariable("userName")
+@Controller
+public class HelloController{
+	@RequestMapping("/welcome/countryName/{userName}")
+	public ModelAndView helloWorld( @PathVariable("userName") String name){
+		ModelAndView model= new ModelAndView("HelloPage");
+		model.addObject("msg", "userName: "+name);
+		return model;
+	}
+}
+In the above example, we can change and retrieve the value of 'country name' and 'user name' by using 
+	@RequestMapping("/welcome/{countryName}/{userName}") annotation
+@Controller
+public class HelloController{
+	@RequestMapping("/welcome/{countryName}/{userName}")
+	public ModelAndView helloWorld(@PathVariable("userName") String name, @PathVariable("countryName") String countryName){
+		ModelAndView model= new ModelAndView("HelloPage");
+		model.addObject("msg", "userName: "+name+"country name: "+countryName);
+		return model;
+}}
+Using "Map" in the @PathVariable annotation
+For that, Add in "spring-dispatcher-servlet.xml":<mvc:annotation-driven/>
+@RequestMapping("/welcome/{countryName}/{userName}")
+public ModelAndView helloWorld( @PathVariable Map<String, String> pathVars){
+	String name = pathVars.get("userName");
+	String country= pathVars.get("countryName");
+	ModelAndView model= new ModelAndView("HelloPage");
+	model.addObject("msg", "user name: "+name+" country name: "+countryName);
+	return model;
+}
+
+@RequestParam annotation 
+	@RequestMapping(value="submitAdmissionForm.html", method=RequestMethod.POST)
+	public ModelAndView submitAdmissionForm(@RequestParam("studentName") String name,@RequestParam("studentHobby") String hobby){}
+
+We can set the "default value" for @RequestParam(value=””) annotation.
+	@RequestMapping(value = "/submitAdmissionForm2.html", method = {RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView submitAdmissionForm2(@RequestParam(value = "studentName", defaultValue = "Guest") String name
+										,@RequestParam("studentHobby") String hobby){}
+
+	@RequestMapping(value = "/submitAdmissionForm3.html", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView submitAdmissionForm3(@RequestParam Map<String, String> requestParamMap){}
+
+
+@ModelAttribute
+	1)As an argument to request-Handler method
+	2)On request handler method
+
+
+Using @ModelAttribute("student")
+1)No need to write the code for binding individual request parameter values  .
+2)Don't need to add "student" object to the "modelAndView" object.
+To use  @ModelAttribute, model's fields name and form's textfields name must be matched.
+
+@RequestMapping(value = "/submitAdmissionForm5.html", method = { RequestMethod.GET, RequestMethod.POST })
+public ModelAndView submitAdmissionForm5(@ModelAttribute("st1") Student st2) {
+		ModelAndView modelAndView = new ModelAndView("submitAdmissionForm");
+		System.out.println("Sample Header Message not present.");
+		//Here st1 will use in JSP file, modelAndView.addObject("st1", st2);
+		//st2 will be use in same request handler method
+
+		return modelAndView;
+}
+class Student{
+	private String hobby;
+	private Long mobile;
+	private Date dob;
+	private List<String> skills;
+	private String departments;
+	private Address address;
+	//Getters & setters
+}
+    <td><select name="skills" multiple>
+						<option value="JavaCore">Java Core</option>
+						<option value="SpringCore">Spring Core</option>
+						<option value="SpringMVC">Spring MVC</option>
+	</select></td>
+	<tr>
+			<td>Employee Address:</td>
+			<td>Country:${emp.address.country}
+			City:${emp.address.city}
+			Street:${emp.address.street}
+			Pin code:${emp.address.pincode}</td>
+	</tr>
+	
+@ModelAttribute annotation on METHOD:
+	When we are writing @ModelAttribute annotation top of the method, whatever object added to the modelAndView object,
+	Spring MVC would automatically add that object to the every handler method.
+	spring mvc will always make call to this method first, before calling any other method() of "controller" class.
+@ModelAttribute
+public void demoModelAttribute2(Model model) {
+	System.out.println(" demoModelAttribute: I will be called before any request handler method of this controller.");
+	model.addAttribute("headerMessage", "Sample Header Message from demoModelAttribute2");
+}
+
+
+Catch all binding related errors using "BindingResult" 
+(1)StudentAdmissionController.java
+@RequestMapping(value = "/submitAdmissionForm6.html", method = { RequestMethod.GET, RequestMethod.POST })
+public ModelAndView submitAdmissionForm6(@ModelAttribute("emp") Employee emp, BindingResult bindingReult) {
+	if (bindingReult.hasErrors()) {
+		System.out.println("Binding errors occured.");
+		ModelAndView modelAndView = new ModelAndView("admissionForm");
+		return modelAndView;
+	}
+	ModelAndView modelAndView = new ModelAndView("submitAdmissionForm");
+	System.out.println("Sample Header Message not present.");
+	return modelAndView;
+}
+(2) AdmissionForm.jsp
+On top of the "form" add:
+<%@ taglib prefix="form" url="http://www.springframework.org/tag/form"%>
+<html>
+<body>
+<form:error path="student1.*"/> 
+<h1>By using BindingResult</h1>
+
+
+Data binding customization
+1)
+@InitBinder
+public void initBinderAbc(WebDataBinder binder) {
+	System.out.println("@InitBinder called after @ModelAttribute method");
+	System.out.println("Mobile number must be integer");
+	binder.setDisallowedFields(new String[] { "mobile" });//Now mobile field will be ignored during data binding.
+}
+2)
+Property editors concept
+example:
+we provided date format yyyy/mm/dd, if we provide some other format(yyyy****mm**dd) then spring MVC failed to bind.
+ 
+Question: How to allow user to provide date in some customized format of your choice as (yyyy****mm*****dd)?
+Ans: using "propertyEditor" method provided by the spring MVC.
+
+@InitBinder
+public void initBinderAbc(WebDataBinder binder) {
+	System.out.println("@InitBinder called after @ModelAttribute");
+	System.out.println("Mobile number must be integer");
+	
+	binder.setDisallowedFields(new String[] { "mobile" });
+	binder.registerCustomEditor(Date.class, "dob", new CustomDateEditor((new SimpleDateFormat("yyyy****MM****dd")), false));
+	////false means empty is allowed
+}
+
+Built-in propertyEditors classes
+	ByteArrayPropertyEditor
+	ClassEditor
+	CustomBooleanEditor
+	CustomCollectionEditor
+	CustomDateEditor
+	CustomNumberEditor
+	FileEditor e.t.c.
+
+
+Writing own custom property editor classes
+	If Built-in propertyEditors classes are not able to fulfill the need of our requirement.
+	binder.registerCustomEditor(String.class, "name", new StudentNameEditor());	
+
+If we are writing own property editor class then we have to extends that class using "PropertyEditorSupport" class.
+Example: (own property editor class)
+StudentNameEditor.java
+	public class StudentNameEditor extends PropertyEditorSupport {
+		@Override
+		public void setAsText(String name){
+		String finalName="";
+		if (!(name.contains("Mr.") || name.contains("Ms."))) {
+			finalName = "Ms. " + name;
+		}
+		setValue(finalName);}
+	}
+When you will submit the admission form, Spring MVC will use setAsText function of this class, 
+	before performing data binding task for name property of student object.
+Whatever value you will provide to setValue(), Spring MVC will use the same value to perform data binding task for name property.
+
+

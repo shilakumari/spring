@@ -1,0 +1,29 @@
+Advantage of ApplicationContext 
+1) pre-loading
+2) Message source & I18N
+3) Event Handling
+
+EventHandling
+
+Core component of EventHandling
+1)Event itself
+2)Event publisher
+3)Event Listener
+
+
+ApplicationEvent class
+ApplicationEventPublisher interface
+ApplicationListener interface
+
+
+
+A class that listen to all event published by spring 
+	MyAllEventListener.java
+
+
+
+ApplicationEventPublisherAware 
+ApplicationContextAware 
+DrawEvent drawEvent = new DrawEvent(this);
+applicationEventPublisher.publishEvent(drawEvent);
+applicationContext.publishEvent(drawEvent);

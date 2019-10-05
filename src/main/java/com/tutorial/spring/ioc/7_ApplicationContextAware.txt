@@ -1,0 +1,58 @@
+BeanNameAware Interface
+	public void setBeanName(String beanName){
+		System.out.print("Bean name is: "+beanName);//triangle11
+	}
+	<bean id="triangle11" class=""></bean>
+While initializing the bean, Spring will call setBeanName() method 
+Example: com.kumari.khusi._12UsingApplicationContextAware._1BeanNameAware
+
+There are few other interfaces which gives the information about container to bean.
+	ApplicationEventPublisherAware
+	ApplicationBeanClassloaderAware etc.
+
+ApplicationContextAware
+In order to get ApplicationContext inside bean we need to implement an interface called ApplicationContextAware.
+If any bean implements ApplicationContextAware interface then it will become aware of ApplicationContext.
+
+ApplicationContextAware  Interface
+		public void setApplicationContext(ApplicationContext context)throws BeansException{
+			this.context = context;
+		}
+	Now "context" accessible from anywhere inside from the bean.
+	Example: com.kumari.khusi._12UsingApplicationContextAware._2ApplicationContextAware
+
+
+In normal case:
+	Class 		Declared 			ActualBehaviour
+1)	Triangle	Singleton			Singleton
+	Point		Prototype/Singleton	Singleton
+2)  Triangle	Prototype			Prototype
+	Point		Prototype			Prototype
+
+When we use ApplicationContextAware:
+	Class 		Declared 	ActualBehaviour
+1)	Triangle	Singleton	Singleton
+	Point		Prototype	Prototype
+
+public class Triangle implements ApplicationContextAware {
+	private Point pointA;
+	private ApplicationContext context = null;
+	public Point getPointA() {
+		this.pointA  = (Point) context.getBean("pointA");
+		return pointA;
+	}
+	public void setPointA(Point pointA) {
+		this.pointA = pointA;
+	}
+	@Override
+	public void setApplicationContext(ApplicationContext context) throws BeansException {
+		System.out.println("Before setApplicationContext");
+		this.context = context;
+		//Triangle triangle = (Triangle) context.getBean("triangle");
+		//System.out.println("Point A:(" + getPointA().getX() + "," + getPointA().getY() + ")");
+		System.out.println("After setApplicationContext");
+	}
+}
+	
+We use Application context in our program in order to initialize the spring container and use xml file in order to configure it.
+We may use applicationContext.getBean() in your bean, instead of directly wiring them in spring xml(application context initialize only once).

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="parentTriangle"
+		class="com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute.Triangle">
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="triangle1"
+		class="com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute.Triangle">
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="triangle2"
+		class="com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute.Triangle"
+		parent="parentTriangle">
+		<property name="points">
+			<list merge="true">
+				<ref bean="pointA" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="triangle3"
+		class="com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute.Triangle"
+		parent="parentTriangle">
+		<property name="points">
+			<list>
+				<ref bean="pointB" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="triangle4"
+		class="com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute.Triangle"
+		parent="parentTriangle">
+		<property name="points">
+			<list merge="true">
+				<ref bean="pointB" />
+				<ref bean="pointC" />
+			</list>
+		</property>
+	</bean>
+
+
+
+
+	<bean id="pointA"
+		class="com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<bean id="pointB"
+		class="com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute.Point">
+		<property name="x" value="10"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<bean id="pointC"
+		class="com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="15"></property>
+	</bean>
+</beans>  

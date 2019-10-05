@@ -1,0 +1,93 @@
+Spring IOC(Inversion of controller) 
+	Spring IOC is a container of beans.
+	It is a factory of beans.
+	It manage life  cycle of beans. 
+	We may have object outside of container also in spring project.
+
+There are two types of IOC containers in spring framework.
+	BeanFactory
+	ApplicationContext
+
+ApplicationContext (=  BeanFactory + Some more task):
+	ApplicationContext  is basic interface provided to access spring framework.
+	It simply reads configuration of your project from xml file and 
+	then by calling different methods of it, access different functionality, provided by spring framework.
+	
+BeanFactory
+	Bean factory is light weight compare to ApplicaionContext.
+	We use BeanFactory where resources are very crucial.
+	
+Tomcat is a Servlet container.(Create & manage life cycle of Servlet)
+Spring is a bean container.(Create & manage life cycle of bean)
+
+Factory Design Pattern : Spring may use configuration file to create object.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beaens xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+               
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+
+ApplicationContext
+	 Create pre-loading
+BeanFactory
+	creates lazy loading
+
+Difference between ApplicationContext & Bean Factory
+1) Event Notification
+2) AOP 
+3) Light Weight
+We use BeanFactory when resources are very crucial. 
+BeanFactory is the basic container whereas ApplicationContext is the advanced container. 
+	ApplicationContext extends the BeanFactory interface. 
+	ApplicationContext provides more facilities than BeanFactory such as integration with spring AOP, message resource handling for i18n etc.
+
+
+Bean Scope
+	Singleton
+	Prototype
+
+ApplicationCOntext: default singleton & pre-loading(or Eager loading)
+	Singleton: 
+			Only once per spring container,
+			it is default scope, 
+			early loading or pre loading or eager loading
+			spring creates only one bean instance or object , and provides whenever it's needed.
+		
+			Lazy Loading using lazy-init attribute
+				<bean id="" name=""class="" scope="singleton" lazy-init="true"></bean>
+			
+	Prototype
+			Always Lazy Loading either lazy-init="true" or lazy-init="false"(or lazy-init="default")
+			New bean created with every request or reference (getBean() or ref in xml)
+
+Bean Factory: always Lazy Loading 
+	Singleton
+	Prototype
+
+Singleton scope should be used with EJB stateless session bean and 
+prototype scope with EJB stateful session bean.
+
+Pre-loading	& Lazy Loading
+Memory Management
+Performance Management
+
+
+Web-aware context bean scopes:
+request: new bean per servlet request
+session: new bean per session
+global: new bean per global HTTP session ( port-let session)
+
+Coding to interfaces
+	Modification is easy
+	Achieve polymorphismm
+
+
+
+ApplicationContextAware
+ApplicationEventPublisherAware
+BeanClassLoaderAware
+BeanNameAware

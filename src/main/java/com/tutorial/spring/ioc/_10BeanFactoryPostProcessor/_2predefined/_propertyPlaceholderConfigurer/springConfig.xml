@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="restaurantBean"
+		class="com.kumari.khusi._10BeanFactoryPostProcessor._2predefined._propertyPlaceholderConfigurer.Restaurant"
+		init-method="initRestaurant" destroy-method="destroyRestaurant">
+		<property name="welcomeNote" value="${welcomeNoteFromFile}"></property>
+	</bean>
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:/com/kumari/khusi/_10BeanFactoryPostProcessor/_2predefined/_propertyPlaceholderConfigurer/mySpring.properties
+			</value>
+		</property>
+	</bean>
+
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations" value="classpath:/com/kumari/khusi/_10BeanFactoryPostProcessor/_2predefined/_propertyPlaceholderConfigurer/mySpring.properties"> 
+		</property> </bean> -->
+
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations" value="/com/kumari/khusi/_10BeanFactoryPostProcessor/_2predefined/_propertyPlaceholderConfigurer/mySpring.properties"> 
+		</property> </bean> -->
+
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations" value="com/kumari/khusi/_10BeanFactoryPostProcessor/_2predefined/_propertyPlaceholderConfigurer/mySpring.properties"> 
+		</property> </bean> -->
+
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations" value="mySpring.properties"> </property> </bean> -->
+</beans>  

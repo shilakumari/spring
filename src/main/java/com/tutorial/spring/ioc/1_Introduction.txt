@@ -1,0 +1,126 @@
+Spring Framework 
+	Free and open source framework
+
+Aim to create Spring framework
+	To enhance developer's productivity and
+	Enforce industry's best known coding practices.
+
+Creator:Rod Jhonson (2003)
+	Rod Jonsan created framework using simple design pattern, IOC(inversion of control) or DI(dependency injection).
+	Later on many new feature has been added as a separate module or a project in it, in the form of separate jar or set of jars.
+
+Advance spring features:
+	Spring WebServices, 
+	Spring Batch
+	.
+	.
+	.
+	 
+Advantages of spring framework
+	Predefined Templates
+	Loose Coupling
+	Easy to test
+	Lightweight
+	Fast Development
+	Powerful Abstraction
+	Declarative support
+	
+Modules of Spring
+	IOC(Inversion of control) or DI(Dependency injection) or Core spring
+	Aspect oriented programming
+	Data Access or Integration Framework
+	Model-view-controller framework
+	Test framework
+
+(1)IOC(inversion of control) or DI(dependency injection)
+	IOC or DI is a design pattern to provide loose coupling. 
+	It removes the dependency from the program.
+	IOC or DI  is the core module.
+	Do not create or instantiate an object inside another java class. 
+	Instead, rely on spring IOC module, IOC create the object for us.
+Example:
+class A{
+	void functionOfAClass(){
+		B objectOfBClass = new B();
+	}
+}
+Here, class A is completely dependent on class B.
+	modification in class B ---> may force to modify class A.
+	Replacing class B with a new class C ---> will force you to modify class A also.
+	testing also will have more dependency 
+Overcome to these above dependencies, IOC or DI used.
+
+(2)Aspect oriented programming:
+Using Aspect oriented programming, we will be able to separate ‘business logic’ to ‘non-business logic’. 
+Do not mix non-business logic with actual business logic in your classes.(Do not add, functional logic with non-functional logic.)
+Example:
+class Calculator{
+	int addition;
+	public boolean addition(int a, int b){
+		logger.info("Entered into Calculator.addition(a,b) method");
+		try{
+			addition = a+b;
+		}catch(Exception e){
+			logger.error("Error occurs  in Calculator.addition(a,b) method");}
+			logger.info("Entered into Calculator.addition(a,b) method");
+		}
+		return addition;
+}
+Using Aspect oriented programming,
+	We will be able to see logs but... without writing a single log statement within your functions using a configuration file.
+	Logging, caching, transaction management etc.
+
+(3)DA(Data Access)/I(Integration) - 
+		contains 5 sub modules in it...
+			JDBC, 
+			ORM, 
+			OXM, 
+			JMS, 
+			Transaction Management.
+(A) Spring JDBC(java database connectivity)
+	We do not need to write or take care off:(Spring JDBC will do this for us)
+		1) Opening and closing of DB connection.
+		2) We do not have to write any exception handling code.
+		3) Prepare and execute statements.
+		4) Resultset.
+	All DB operations will be done in a simple ways with less code and in it's best readable form.
+(B) Spring ORM(Object relational mapping)
+ 	Provide full API support to integrate ORM tools like - Hibernate, JPA, IBATIS etc...
+(C) Spring OXM
+	Converting a java object to XML or XML to java object.
+	Provide full API support to integrate OXM frameworks like - JAXB, Castor, JiBX etc...
+(D) Spring JMS(Java Message Service)
+	Provide full API support to produce and consume messages from JMS queues.
+(E) Spring Transaction Management
+	Provides two ways of transaction management-
+		1)programmatic way
+		2)declarative way
+(4) Model-view-controller framework
+(5) Test framework
+	Provides full support for testing Spring components with JUnit or test-ng framework.
+
+Projects:
+Spring Framework
+Spring Boot
+Spring Data
+Spring Web Services
+Spring Batch
+Spring Security 
+Spring Integration
+Spring Hateoas
+Spring AMQP
+Spring Social
+Spring Web Flow
+Spring Spring Roo
+Spring Android
+Spring Grails Support
+Spring Groovy Support
+Spring Scala
+Spring BLAZEDES INTEGRATION
+Spring LOADED
+Spring Shell
+Spring LDAP
+Spring Flex
+Spring XD
+REST Shell
+Spring Mobile

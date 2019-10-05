@@ -1,0 +1,65 @@
+1)Sequence to learn spring framework?
+2)IOC or DI design pattern
+3)for what purpose commons-logging jar used?
+4)ApplicationContext methods & its implementation classes
+5)BeanFactory vs ApplicationCOntext
+6)beans attribute value in springConfig file & xsd vs dtd
+7)Spring in Action read & docs
+8)Singleton vs Prototype bean life cycle
+9)what is default bean scope for inner bean?
+
+1)Sequence to learn
+	1: Core Java Fundamentals and Understanding of OOConcepts and Exception handling and some Internals of Java.
+	2: Learn JDBC.
+	3: Learn JSP/Servlet/HTML and build CRUD Web App with MVC Pattern and (JDBC++ connection pooling). 
+		try to apply your full Object Oriented Principle knowledge on this App.
+	4: Learn Hibernate and wrote persistent (dao layer) logic with Hibernate in the same app.
+	5: Just read about Spring and study why we need this…. IOC/Decoupling/Cross Cutting Concerns/Pooling/Exceptions/Template.
+	5.1:Just Think the difference if same app you build with Spring.
+		Did Existing app some problem because you did not used Spring concept like IOC/Template/Support Classes etc..
+	5.2: Start writing a new App with Spring MVC/Hibernate. Build That test that.
+	6: Learn JEE concept like WebService / Messaging / Transactions /Cache and try to implement with Spring and without Spring.
+
+
+3)for what purpose commons-logging jar used?
+	Commons Logging is the logging framework that Spring uses to log its own data:
+	http://blog.springsource.org/2009/12/04/logging-dependencies-in-spring/
+	Spring is a product like any other product, and as such, it does logging of its own. 
+		It uses Commons Logging as an API to perform logging.
+	You don't need to know Commons Logging inside-out in order to learn Spring; 
+		but you need to install Commons Logging for the Spring Framework to work.
+
+
+5)ApplicationContext vs BeanFactory
+	BeanFactory is a subset of ApplicaitonContext and provides lesser functionalities. 
+	When we need full capabilities with respect to configuration handling then we go for ApplicationContext.
+	
+	Similarity
+	Spring provides two kinds of IOC container, 
+		BeanFactory & ApplicationContext. 
+	BeanFactory and ApplicationContext both are Java interfaces and ApplicationContext extends BeanFactory. 
+	Both of them are configuration using XML configuration file. 
+	BeanFactory provides basic IOC and DI features while ApplicationContext provides advanced features. 
+	
+	Differences
+	1) BeanFactory doesn't provide support for internationalization i.e. i18n but ApplicationContext provides support for it.
+	2) BeanFactory has ability to publish event to beans that are registered as listener.
+	3) One of the popular implementation of BeanFactory interface is XMLBeanFactory
+	   while one of the popular implementation of ApplicationContext interface is ClassPathXmlApplicationContext. 
+	   	On Java web-application we use WebApplicationContext which extends ApplicationContext interface and adds getServletContext method.
+	4) If you are using auto-wiring and using BeanFactory than need to register 
+		AutoWiredBeanPostProcessor using API which you can configure in XML if you are using  ApplicationContext. 
+	5) BeanFactory is OK for testing and non production use but ApplicationContext is more feature rich container implementation 
+		and should be favored over BeanFactory'
+
+
+9) what is default bean scope for inner bean?
+	An inner bean does not require a defined id or name; the container ignores these values. 
+		It also ignores the scope flag.
+	Inner beans are always anonymous and always scoped as prototypes.
+	You can't inject inner beans into other beans other than the enclosing bean.
+	
+	
+10) In xml, xsd or dtd
+
+	Is Factory bean only support dtd.

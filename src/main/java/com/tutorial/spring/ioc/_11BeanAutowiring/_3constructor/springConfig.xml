@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="triangle" class="com.kumari.khusi._11BeanAutowiring._3constructor.Triangle"
+		autowire="constructor">
+		<!-- <property name="pointA" ref="pointA">
+		</property> <property name="pointB" ref="pointB">
+			</property> <property name="pointC" ref="pointC"></property> -->
+	</bean>
+
+	<bean id="sefsdf" class="com.kumari.khusi._11BeanAutowiring._3constructor.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<!-- <bean id="pointB" class="com.kumari.khusi._11BeanAutowiring._2byType.Point">
+		<property name="x" value="10"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<bean id="pointC" class="com.kumari.khusi._11BeanAutowiring._2byType.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="15"></property>
+	</bean> -->
+	
+	<bean id="sdfsdf" class="com.kumari.khusi._11BeanAutowiring._3constructor.Side">
+		<property name="length" value="10"></property>
+	</bean>
+</beans>  

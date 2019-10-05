@@ -1,0 +1,222 @@
+Web-Service
+	It is all about developing a software application in such a way that it allows other software application can call its methods.
+	It is a way of establishing communication b/w two software which are language inter-operable.
+	It is calling a function/method which is inside a software from some other software using a URL.
+	
+Client application-->Request-->Web Service Application(Service Provider)
+Client application & Web Service Application(Service Provider) may or may not developed using same language.
+Client application & Web Service Application(Service Provider) may or may not present on same server.
+	  	  	
+Actor1-->Request-->Actor2-->Response-->Actor1
+Medium:(LAN,WAN(wide area network), Internet using Http)
+Format for I/O messages:(SOAP)
+
+Types of web service
+	Web Service Applications are developed using certain standard rules. 
+	Based on which, we can divide web service in the following two categories:
+		1)SOAP web service(SOAP protocol)
+		2)REST web service(REST guidelines)
+		
+	
+		
+SOAP(Simple Object Access Protocol) web service introduction
+	Client application and webService application can communicate each other using SOAP protocol.
+	SOAP format(SOAP protocol) says that communication should happens in XML format by following certain rules.
+	SOAP web service & its client  can use other protocols too instead of  http like SMTP,FTP, JMS etc. as per requirement.
+Analogy:
+	Client-->Order Pizza-->Pizza Store(Service Provider)
+	1)Mobile No
+	2)Pizza options available with their prizes
+	3)Both speak using English grammar
+	Client would to know above information, if he is going to deliver Pizza.
+	
+In similar manner programming world too, client has to know certain basic information about webSericeApplication without 
+	it can't make a call to any of its methods.
+
+	Client application-->Request-->SOAP Web Service Application(Service Provider)		
+
+Client must know the following  to utilize the service:
+	1)Exact location/address of service provider(URL etc)
+	2)Exact signature of all exposed methods of service provider(WSDL(Web service desription language) file)
+
+
+
+
+
+REST(Representation State Transfer) web service introduction
+If a software exposes data to other software and while doing so if it follows "REST guidelines", 
+	then this application is called RESTful Web Application.
+	
+	Software Application --exposes data--> Other Software Application
+
+REST guidelines/HATEOAS(Hypermedia as the Engine of application state):
+
+	Client --request for a resource--> Server(Resource)--gets the response=Representation of Resource--> Client
+	(Representation of requested Resource= copy of requested resource in any of the valid formats like xml, json, html, csv, pdf etc.)
+
+1)In client-server architecture, 
+	Whatever data or functionality kept at the server application which can be access or modify by the client is called 
+		resource(data, functionality).
+  	Client can access or modify any resources using URI. 
+2)Response=Representation of requested resource + Additional information
+  a)Representation of requested resource: 
+  		copy of requested resource in any one of the valid format like XML,JSON,HTML,CSV, PDF etc.
+  b) Additional information: 
+  		which describes every basic characteristics of the representation of resource like format, size etc.
+    	Client requires addition information for processing the requested resource.
+
+3)Between client & server any number of intermediary can be installed which may have 
+	response caching server at client, server security, load balancing, farewell server at server etc.
+4)Every request made by the client treated as a new request & 
+	should carry all the information with it which is required by server to send response to it. 
+5)In every representation of requested resource which send by server to client, 
+	server application should include all the URIs & links of all the relevant resources
+  	which client may require to visit after getting response.
+  	
+REST API
+Any URI is said to be REST Api of it follows REST guidelines.
+	http://jsonviewer.stack.hu/
+	https://www.javatpoint.com/json-object
+
+HTTP Status 405 – Method Not Allowed
+Message Request method 'GET' not supported
+
+HTTP Status 415 – Unsupported Media Type
+The origin server is refusing to service the request because the payload is in a format not supported by this method on the target resource.
+
+
+
+First REST Api
+1)@ResponseBody 
+	:says don't use View Resolver & send return value of request method handler method as response in desired format(by default JSON).
+	(It doesn't to make use of any view to prepare the final response, instead method is going to return value(json) back to the client, 
+		For this, need to include following jars.)  
+2)jackson-databind.jar
+	jackson-core.jar
+	jackson-annotations.jar
+	jackson-databind.jar
+Example:com.demo._7WebService._1Introduction.StudentRESTController
+
+
+
+
+Few Annotations (For more control on JSON response)
+1)
+	@JsonProperty("Student_ID")
+	int id;
+2)
+	@JsonPropertyOrder({"name","Student_ID","rollNo"})
+3)
+	@JsonIgnoreProperties({ "password" })
+4)
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@JsonInclude(Include.NON_NULL)
+5)
+	@PathVariable annotation
+		@ResponseBody
+		@RequestMapping(value = "/students/{name}", method = {RequestMethod.GET,RequestMethod.POST})
+		public Student getStudent(@PathVariable("name") String name) {
+6)
+	@RestController
+		We don't need to use @ResponseBody on each request handler method of REST api.
+		For readability, it is recommended to make REST api controller & non-REST api controller separately.
+		and add @RestController annotation on top of the newly created controller class:
+			@RestController
+			public class StudentRESTController {}
+REST Api testing tool
+	SOAP UI
+	RESTlett client
+	Postman
+
+7)To get Response in XML format:
+	Using POSTMAN Tool
+	1)Header - Accept, value - application/xml in header
+	2)On class-path , following jar
+		jackson-dataformat-xml
+			jackson-databind
+			com.fasterxml.jackson.core 
+			jackson-annotations
+			jackson-module-jaxb-annotations
+			woodstox-core
+			stax2-api
+	3)@RequestMapping(value="/students",   method=RequestMethod.GET,   produces={"application/json","application/xml"})
+	  @RequestMapping(value = "/students", method = RequestMethod.GET, produces = { "application/json" })
+		: by "produces", forcing SpringMVC framework that this RESTApi controller method must support only one format 
+		   and that format is 'json'.
+	  
+	If particular media type format not supported then: HTTP Status 406 – Not Acceptable
+		
+
+
+		
+8)
+Http GET: For read data from server
+Http PUT: For update data on server
+Http POST:For create data on server
+
+@RequestBody uses Content-Type header values to convert request body to Java Object
+Content-Type request header values application/xml, application/json etc.
+Accept request header values application/xml, application/json etc.
+
+9)
+Consumes attribte
+We can restrict our Api to support only media type using consumes attribte
+
+For consumeing application/json media type only:
+consumes="application/json"
+
+10)
+Using ResponseEntity as a return type
+
+Respons contains
+	Response body
+	Response headers
+	Response status code of request/response
+
+It is prefer to send response as with status code than sending true/false.
+If we made return type of request handler method as void 
+	then if no exception occur then by default status code would be return as 200 ok.
+	Here may be data not found but still status code will be 200 ok because no exception occured.
+	So we need to specify status code as needed using ResponseEntity object.
+	
+	ResponseEntity<Void> responseEntity=new ResponseEntity<Void>(HttpStatus.OK);
+	responseEntity=new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+	ResponseEntity<Boolean> responseEntity=new ResponseEntity<Boolean>(true,HttpStatus.OK);
+	ResponseEntity<Student> responseEntity=new ResponseEntity<Student>(student,HttpStatus.OK);
+	
+11)
+		HttpHeaders httpHeaders=new HttpHeaders();
+		httpHeaders.add("key1", "value1");
+		httpHeaders.add("key2", "value2");
+		ResponseEntity<Student> responseEntity=new ResponseEntity<Student>(student, ,HttpStatus.OK);
+		
+
+		Content-type headers
+			1)Request Content-type headers
+			2)Response Content-type headers
+			
+12)
+Http POST request
+	@ResponseBody
+	@RequestMapping(value = "/students", method = { RequestMethod.POST },consumes={ "application/json" })
+	public ResponseEntity<Student> inserStudent( @RequestBody Student student) {
+		System.out.println(student.getName());
+		System.out.println(student.getHobby());
+		// Code to insert student
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add("key1", "value1");
+		httpHeaders.add("key2", "value2");
+		httpHeaders.add("Location_OF_GET_Api_For_Created_Resource", ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{name}").buildAndExpand(student.getName()).toUri().toString());
+
+		ResponseEntity<Student> responseEntity = new ResponseEntity<Student>(student, httpHeaders, HttpStatus.CREATED);
+		return responseEntity;
+	}
+13)
+Http Delete request
+@ResponseBody
+	@RequestMapping(value = "/students/{name}", method = { RequestMethod.DELETE },consumes={ "application/json" })
+	public ResponseEntity<Boolean> deleteStudent(@PathVariable("name") String name) {
+		ResponseEntity<Boolean> responseEntity = new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		return responseEntity;
+	}

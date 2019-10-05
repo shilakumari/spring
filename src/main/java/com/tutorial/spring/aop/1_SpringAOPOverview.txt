@@ -1,0 +1,76 @@
+(1) @Aspect
+ Mention on top of the "class".
+: To convert in aspect that class.
+
+(2) @Before()
+ Mention on top of the "method"
+: To execute particular method, before Every method.
+
+(3) @Before("execution(public String com.aop._1BasicExample._1usingXML.Circle.getName())")
+ Mention on top of the "method".
+: To execute particular method, before 'getName()' method of 'Circle' class.
+
+(4)@Before("execution(public String getName())")
+ Mention on top of the "method"
+: To execute method, before every 'getName()' methods.
+
+(5) @Before("execution(public * get*())")
+ Mention on top of the "method"
+: To execute method, before those methods prefix is 'get' of any type(String, int, long, double etc) but method should be 'public'.
+
+(6) @Before("execution( * get*())")
+ Mention on top of the "method"
+: To execute method, before those methods prefix is 'get' of any type(String, int, long, double etc).
+
+(7) @Before("execution( * get*(*))")
+ Mention on top of the "method"
+: To execute method, before those methods prefix is 'get' of any type(String, int, long, double etc) and supported arguments 1 or more.
+
+(8) @Before("execution( * get*(..))"
+ Mention on top of the "method"
+: This annotation same as (7), but argument considered 0 or more. 
+
+(9) @Before("execution( * com.aop._1BasicExample._1usingXML.*.get*(..))")
+ Mention on top of the "method"
+: To execute method, before those methods prefix is 'get' of any type(String, int, long, double etc) and supported arguments 0 or more.
+: Executes before every method of 'com.aop._1BasicExample._1usingXML' package those have prefix "get".
+
+
+
+
+(16) JointPoint as argument
+ public void sampleAdvice4(JoinPoint joinPoint)
+
+Example:
+@Aspect
+public class MySampleAspect5 {
+@Before("allCircleMethods()")
+public void sampleAdvice4(JoinPoint joinPoint) {
+System.out.println("Inside sampleAdvice2() of MySampleAspect2");
+System.out.println(joinPoint.toString());
+System.out.println(joinPoint.getTarget());
+Circle circle=(Circle)joinPoint.getTarget();
+}
+@Pointcut("within(com.aop._1BasicExample._1usingXML.Circle)") //allCircleMethods, More readable,
+public void allCircleMethods(){
+}
+	
+@Before("args(String)")
+public void stringArgumentMethods(){
+System.out.println("Inside stringArgumentMethods");
+}
+
+//We may use for preprocessing of arguments before actual method CALLED
+@Before("args(name)")   
+public void stringArgumentMethods2(String name){
+System.out.println("Inside stringArgumentMethods2 & THE VALUE IS: "+name);} }
+
+(17) @Before("args(String)")
+ Mention on top of the 'method'.
+:A method that takes 'String' argument and return before actual method called.
+
+(18) @Before("args(name)")  
+ Mention on top of the 'method'.
+:We may use for preprocessing of arguments before actual method cALLED 
+	
+	

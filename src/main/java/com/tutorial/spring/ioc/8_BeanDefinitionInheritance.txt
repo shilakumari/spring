@@ -1,0 +1,67 @@
+Bean Definition Inheritance
+1) parent attribute to the base bean
+2) merge attribute to the collection property of base bean
+3) abstract attribute to the parent bean to not create object of parent bean
+Advantage:
+	Improve performance
+
+We have lot of bean definition in xml. let's something common in all bean.
+By Inheritance,
+	We can have one bean which contains all these common definition inside it and then inherit it from other beans.
+	Now this parent bean which have common definitions that can be a bean it self or 
+		it can be abstract(that mean there are no beans created for it). 
+	all it does as the purpose of template your bean definitions. 
+
+We need to create child bean definitions and parent bean definitions.
+
+There are some attributes used in "Bean Definition Inheritance".
+	(1) parent attribute (added to the child)
+	(2) merge attribute (added to the child)
+	(3) abstract attribute (added to the parent)
+
+(1) parent attribute (added to the child)
+In XML file:
+	1.Define a parent bean
+		<bean id="parentTriangle" class="">
+			<property name="pointA" ref="pointA"></property>
+		</bean>
+	2.Define child bean and inherit parent property using "parent attribute"
+		<bean id="triangle1" class="" parent="parentTriangle">
+			<property name="pointB" ref="pointB"></property>
+			<property name="pointC" ref="pointC"></property>
+		</bean>		In this bean, pointA automatically inherited from parent bean that is "parentTriangle".
+Example: com.kumari.khusi._13beanDefinitionInheritance._1parentAttribute
+
+(2) merge attribute (added to the child)
+In XML file:
+	1.parent bean with <list>
+		<bean id="parentTriangle" class="">
+			<property name="points">
+				<list><ref bean="pointA" /></list>
+			</property></bean>
+	2.child bean, inherit parent list property using "merge attribute" and "parent attribute"
+		<bean id="triangle2" class="" parent="parentTriangle">
+			<property name="points">
+				<list merge="true"><ref bean="pointA" /></list>
+			</property>
+		</bean>
+Example: com.kumari.khusi._13beanDefinitionInheritance._2mergeAttribute
+
+(3) abstract attribute (added to the parent)
+In XML file:
+	1.parent bean with <list> and "abstract attribute"
+		<bean id="parentTriangle" class="" abstract="true">
+			<property name="points">
+				<list><ref bean="pointA" /></list>
+			</property></bean>
+	2.child bean, inherit parent list property using "merge attribute" and "parent attribute"
+		<bean id="triangle2" class="" parent="parentTriangle">
+			<property name="points">
+				<list merge="true"><ref bean="pointA" /></list>
+			</property>
+		</bean>
+Here parent bean will not create because of "abstract attribute", this bean is written only for template purpose i.e. 
+	we need some defined functionality and don't want to create parent bean.    
+
+	
+	

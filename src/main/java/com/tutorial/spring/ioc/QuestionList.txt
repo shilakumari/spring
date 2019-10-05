@@ -1,0 +1,21 @@
+1) What is Spring?
+	It is a lightweight, loosely coupled and integrated framework for developing enterprise applications in java.
+2) What are the advantages of spring framework?
+3) What are the modules of spring framework?
+4) What is IOC and DI?
+5) What is the role of IOC container in spring?
+6) What are the types of IOC container in spring?
+7) What is the difference between BeanFactory and ApplicationContext?
+8) What is the difference between constructor injection and setter injection?
+9) What is autowiring in spring? What are the autowiring modes?
+10) What are the different bean scopes in spring?
+11) In which scenario, you will use singleton and prototype scope?
+12) What are the transaction management supports provided by spring?
+13)IOC or Dependency injection is a...
+	Design Pattern
+14)Which exception class is related to all the exceptions that are thrown in spring applications?
+	DataAccessException
+15)Which are different points where weaving can be applied?
+	CompileTime, ClassLoading time, Runtime
+16)Controller in spring is...
+	An interface

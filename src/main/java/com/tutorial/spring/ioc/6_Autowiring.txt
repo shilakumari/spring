@@ -1,0 +1,111 @@
+Autowiring
+Autowiring enables the programmer to inject the bean automatically. We don't need to write explicit injection logic.
+	1)Using xml: Highly recommended not to use (due to hard to understand when debug) 
+	2)Using annotation: Highly recommended  to use 
+
+Autowiring using XML
+1)By Name
+2)By Type
+3)By Constructor
+4)no
+5)By default, no autowiring
+
+1)By Name
+	Auto-wiring help us to reduce some of the code that should have to configure (or,)
+	reduce some of the code that is used in xml for configuring member variables.
+Every member variable in the spring bean, we should have to configure in xml as bean as -
+	<property name="" ref bean=""/>
+	That is we have to provide reference explicitly.
+
+Example:
+In Triangle.java file, declaring 3 point type as: 
+		private Point pointA;
+		private Point pointB;
+		private Point pointC; 
+		ALong with setter, getter methods.
+	
+	Now configuring in xml:
+		<bean id="triangle" class="" autowire="byName">
+		
+		<bean id="pointA" class="">
+			<property name="x" value=""/><property name="y" value=""/></bean>
+		<bean id="pointB" class="">
+			<property name="x" value=""/><property name="y" value=""/></bean>
+		<bean id="pointC" class="">
+			<property name="x" value=""/><property name="y" value=""/></bean>
+
+Here autowired "byname", in xml id should be match to the member variable of the "Triangle.java" as - 
+	Point pointA	id="pointA",  
+	Point pointA	id="pointB",  
+	Point pointA	id="pointC".
+ 
+2)By Type
+	possible only if, one bean of each type
+	It uses setter DI
+	Partial dependency  possible 
+	Wrapper & String classes ,may also be defined as a bean in configuration file
+	we should have to provide at-most one bean for the particular class in xml.
+	It looks for the type (that is class), even the bean defined in XML with different name(id).
+	
+Example:
+In Triangle.java file, declaring 3 point type as: 
+		private Point pointA;
+		private Point pointB;
+		private Point pointC; 
+		ALong with setter, getter methods.
+	
+	Now configuring in xml:
+		<bean id="triangle" class="" autowire="byType">
+		
+		<bean id="pointA" class="com.kumari.khusi._11BeanAutowiring._2byType.Point">
+			<property name="x" value=""/><property name="y" value=""/></bean>
+
+	In "byType" configure based on classes, not byName. 
+	such as - class name ("com.kumari.khusi._11BeanAutowiring._2byType.Point").
+
+3)constructor (Use bytype & constructor DI)
+	Partial dependency not possible
+	Autowire by Constructor is same as autowire byType.
+
+4)no
+5)By default, no autowiring
+ 
+
+Autowiring using Annotation
+	Just like @Required annotation, @Autowired is also PostProcessor.
+	we have to create bean of "AutowireAnnotationBeanPostProcessor" inside <bean> tag in XML.
+	@Autowired:AutowiredAnnotationBeanPostProcessor
+Example:
+In "Triangle.java":
+	@Autowired//(Include above the setter method)
+	public void setPointA(Point pointA) {
+		this.pointA = pointA;
+	}
+	
+In xml:
+	(Compulsory we should have to mention)<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean>
+	
+	<bean id="sefsdf" class="com.kumari.khusi._11BeanAutowiring._4usigAnnotation._1autowired.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	
+
+If multiple beans are found in xml then autowiring will happened byName
+	If ambiguity problem arises, autowiring will happened byType
+		If ambiguity problem arises, autowiring will happened using @Qualifier("circleRelated") & <qualifier value="circleRelated"></qualifier>
+	
+@Qualifier("circleRelated")
+<bean id="dsfs"
+		class="com.kumari.khusi._11BeanAutowiring._4usigAnnotation._1autowired._2qualifier.Point">
+		<qualifier value="circleRelated"></qualifier>
+		<property name="x" value="10"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	
+
+<context:annotation-config/> to use @Qualifier("circleRelated")
+
+
+JSR-250 Annotation: Standard java annotation, not specific to spring
+@Resource  : byName DI

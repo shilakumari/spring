@@ -1,0 +1,114 @@
+Internationalization and localization
+	An application that support more than one language, called Internationalization process.
+	If a developer add support for more than one language, then that process is called "Localization".
+
+The process of creating or developing web application in such a generic manner that can handle or support more than one languages 
+	is known as Internationalization process.
+example:
+	This whole web application hard-wide in English, 50% of visitors want to view this page in English and remaining 50% in French.
+
+First, add this tag in "AdmissionForm.jsp" file:
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags"%>
+Adding this taglib as well in this JSP to support placeholders.
+Then make change in "AdmissionForm.jsp" file:
+<td>Student's Name:<td/>
+Example
+<td><spring:message code="label.studentName">
+<td/>
+
+Then put this placeholder entry in properties file:
+label.studentName = Student's Name
+
+<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/employeemessages" />
+		<!-- <property name="cacheSeconds" value="1"/> -->
+</bean>
+
+We have to create different properties file depends on languages.
+Example:
+	studentmessages_en.properties
+	studentmessages_fr.properties
+
+Now application support two languages.
+
+To enable this both languages, then go to "setting" of your browser.
+setting -> Languages -> Languages and input settings 
+
+
+
+
+If user want to change the language without changing in setting, for that we are adding links to the admissionForm page.
+To do so, 
+1) Include two links - English and French on top of the AdmissionForm.jsp page.
+	<a href="admissionForm12.html?siteLanguage=en">English</a>
+	<a href="admissionForm12.html?siteLanguage=fr">French</a>
+2) Register an interceptor with the name localeChangeInterceptor in the Spring's configuration file
+	<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="siteLanguage" /> 
+	</bean>
+3) Include an entry of cookieLocaleResolver bean in the Spring's configuration file
+	 <bean id="localeResolver"	class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+ 
+
+
+
+Supporting multiple themes
+Example:
+	I wish to support two themes - red theme and green theme.
+	That means we want to display same text in two different color. So that creating two links on top of the web page - Red & Green.
+
+STEPS to support multiple themes:
+1. Include these three beans in the Spring's configuration file:
+
+	 <bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+		<property name="basenamePrefix" value="theme-"/></bean>
+
+	<bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">
+	<property name="defaultThemeName" value="green"/></bean>
+
+	<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+	<property name="paramName" value="siteTheme"/></bean>
+
+
+2. Include two links Red and Green in the AdmissionForm.jsp file along with below statement:
+	<link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css"/>
+		<a href="admissionForm13.html?siteTheme=green">Green</a>
+	    <a href="admissionForm13.html?siteTheme=red">Red</a>
+
+3. Include two properties file and their related style-sheets for two themes which i wish to support for the application:
+	For red theme: 
+		include theme-red.properties file and it's corresponding style-sheet stylered.css file.
+		H3{
+			COLOR:green; FONT-FAMILY: sans-serif; FONT-SIZE: 20pt;
+		}
+		
+	For green theme:
+		include theme-green.properties file and it's corresponding style-sheet stylegreen.css file.
+		H3{
+			COLOR:red; FONT-FAMILY: arial; FONT-SIZE: 20pt;
+		}
+		
+Note: Add this statement in the Spring's configuration file:
+	<mvc:resources mapping="/resources/**" location="/WEB-INF/"/>
+
+
+For ThemeChangeInterceptor to work - its mandatory to put an entry of CookieThemeResolver bean in the spring's configuration file.
+Note: we can also put an entry of SessionThemeResolver bean as an alternative to CookieThemeResolver
+
+if you specify cookie ThemeResolver bean as shown below in the spring's configuration file
+<bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">
+<property name="defaultThemeName" value="green">
+Then spring MVC application will first check if there is any cookie present in the client which has the theme information present in it.
+if yes - the application will use the specified theme in the cookie to pick an appropriate properties file for that theme.
+if no - the application will use the default theme provided in the syntax above.
+
+Q. How to set the cookie in the client's browser which contains the theme information?
+Answer: Just specify the CookieThemeResolver bean with the below syntax
+		<bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">
+			<property name="defaultThemeName" value="green"/>
+			<property name="cookieName" value="themeCookie"/>
+			<property name="cookieMaxAge" value="3600"/>
+		</bean>
+		This will set a cookie with the name themeCookie on the client browser with max age 3600 seconds and theme set as green(Green Theme).
+

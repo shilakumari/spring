@@ -1,0 +1,83 @@
+Interceptor
+Many times on internet, if you want to access some website, some time won't get requested web page.
+Instead of that getting some message on response page like - "the website is not working at the moment, please try after sometimes".
+To perform above activity, we used "Interceptor".
+
+Steps to instruct spring MVC to perform some task before handling a request:
+(1) Include a java class:
+	extends "HandlerInterceptorAdapter" class and override one of it's methods with name "preHandle".
+(2) Write the code in the preHandle() method:
+	which you want Spring MVC to execute before handling the request.
+(3) Put an entry of this newly added java class:
+	in the Spring configuration file.
+
+
+
+
+(1) Include a java class
+preHandle():
+	If this method returns true then, Application will further handle the request.
+	If this method returns false then, Application will not further handle the request.
+		Example:
+			This Application should work on all week days except for Sunday.
+			If we are accessing on Sunday then should have to show an error -
+			(The website does not work on Sunday; please try accessing it on any other week day!!)
+	After receiving the request, The application first made a call to "preHandle method".
+
+postHandle():
+	// This method would be called after Spring MVC executes the request handler method for the request
+	
+
+afterCompletion():
+		// This method would be called after the response object is produced by the view request
+
+
+if we want to made a call to specific uRL request only then inside <mvc:interceptor> add:
+	<mvc:mapping path="/admissionForm.html"/>
+	Example:
+		<mvc:interceptor>
+			<mvc:mapping path="/admissionForm.html"/>
+				<bean class=""/>
+		</mvc:interceptor>
+
+
+public class DayOfWeekBasedAccessInterceptor extends HandlerInterceptorAdapter {
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws IOException {
+	Calendar cal = Calendar.getInstance();
+	int dayOfWeek = cal.get(cal.DAY_OF_WEEK);// getting the on which request is made	
+	if (dayOfWeek == 1) {// 1 means Sunday, 2 means Monday,..., 7 means Saturday
+		response.getWriter().write("The website is closed on sunday, please try again accessing it on any other week day!!");
+		return false;
+	}		
+	return true;// if this method returns true then, Application will further handle the request.
+}}
+public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws IOException {
+		// This method would be called after Spring MVC executes the request handler method for the request
+		System.out.println("HendlerInterceptorAdeptor: Spring MVC called postHandle() method for "
+				+ request.getRequestURI().toString());
+}
+
+public void afterComletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws IOException {
+		// This method would be called after the response object is produced by the view request
+		System.out.println("HendlerInterceptorAdeptor: Spring MVC called afterComletion() method for "
+				+ request.getRequestURI().toString());
+}
+
+2)
+<mvc:interceptors>
+		<bean class="com.demo._4Interceptor.DayOfWeekBasedAccessInterceptor" />
+		<mvc:interceptor>
+			<mvc:mapping path="/interceptorFormValidation/admissionForm5.html" />
+			<bean class="com.demo._4Interceptor.DayOfWeekBasedAccessInterceptor2" />
+		</mvc:interceptor>
+
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="siteLanguage" />
+		</bean>
+	</mvc:interceptors>
+
+
+
+Normally fiters are called before interceptors.

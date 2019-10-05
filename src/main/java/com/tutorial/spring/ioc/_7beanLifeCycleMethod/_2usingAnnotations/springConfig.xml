@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-init-method="myInit" default-destroy-method="myDestroy">
+
+	<bean id="restaurantBean"
+		class="com.kumari.khusi._7beanLifeCycleMethod._2usingAnnotations.Restaurant"
+		init-method="initRestaurant" destroy-method="destroyRestaurant">
+		<property name="welcomeNote"
+			value="Welcome to the restaurant via injecting value into bean property"></property>
+	</bean>
+
+	<bean id="teaBean"
+		class="com.kumari.khusi._7beanLifeCycleMethod._2usingAnnotations.Tea">
+		<property name="welcomeNote"
+			value="Welcome to the tea via injecting value into bean property"></property>
+	</bean>
+
+	<bean
+		class=" org.springframework.context.annotation.CommonAnnotationBeanPostProcessor">
+	</bean>
+
+	<bean id="employeeBean"
+		class="com.kumari.khusi._7beanLifeCycleMethod._2usingAnnotations.Employee">
+		<property name="welcomeNote"
+			value="Welcome to the employeeBean via injecting value into bean property"></property>
+	</bean>
+
+	<bean id="studentBean"
+		class="com.kumari.khusi._7beanLifeCycleMethod._2usingAnnotations.Student">
+		<property name="welcomeNote"
+			value="Welcome to the studentBean via injecting value into bean property"></property>
+	</bean>
+
+</beans>  

@@ -1,0 +1,129 @@
+Bean Life Cycle Method or Callbacks
+1) Using Interface :specific to spring
+2) Using XML
+3) Using Annotations
+AbstractApplicationContext>registerShutdownHook()
+
+Using Interface
+InitializingBean & DisposableBean: afterPropertiesSet() & destroy()
+
+Using XML
+init-method & destroy-method: default-init-method & default-destroy-method
+
+Using Annotations
+@PostConstruct & @PreDestroy
+org.springframework.context.annotation.CommonAnnotationBeanPostProcessor(to enable recognization/activation of annotation @PostConstruct & @PreDestroy)
+
+
+
+
+
+
+BeanPostProcessor interface
+BeanPostProcessor interface includes two methods:
+	postProcessBeforeInitialization(Object bean, String beanName)
+	postProcessAfterInitialization(Object bean, String beanName) 
+
+BeanPostProcessor is a class which allows you to modify a bean instance or 
+	perform any task once it is created or initialized by spring container.
+It also allow you to modify bean instance, once it created.
+
+Single code for all beans
+We write a certain piece of code in a BeanPostProcessor & Spring executes it after initializing each & every bean provided in 
+	spring configuration file, just before & after init life cycle event
+
+Extend or Override the definition of bean provided in the spring configuration file by modifing the bean instances.
+Extend or override the functionality of framework that you might make some configuration related coding in the BeanPostProcessor.
+	(like beanName to be printed)
+
+
+Order in BeanPostProcessors
+We can write multiple BeanPostProcessor & give them order.
+	Ordered  interface
+
+Ordered
+Ordered is an interface.
+To set priority of the bean, uses Ordered interface.
+Priority order: 0>1
+
+BeanPostProcessors
+	Custom
+	Predefined
+
+Predefined BeanPostProcessor
+	RequiredAnnotationBeanPostProcessor (@Required on setter method)
+	<bean	class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"></bean>
+
+Annotation based container configuration
+	RequiredAnnotationBeanPostProcessor
+
+
+
+
+
+
+BeanFactoryPostProcessor
+Extend or Override the definition of bean provided in the spring configuration xml file 
+	before spring container instantiate any bean (before calling constructor).
+Example: Modifying property value(we can also change any meta-data written in spring configuration xml file)
+<bean	class="com.kumari.khusi._10BeanFactoryPostProcessor._1custom._2withOrder.DemoBeanPostProcessor"></bean>
+public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException 
+
+
+Example:
+public class DemoBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
+	@Override
+	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		System.out.println(" Inside DemoFactoryBeanPostProcessor ");
+		BeanDefinition bd = beanFactory.getBeanDefinition("restaurantBean");
+		MutablePropertyValues mpv = bd.getPropertyValues();
+		mpv.addPropertyValue("welcomeNote", "This is the modified welcomeNote values using BeanFactoryPostProcessor");
+	}
+}
+We need entry in SpringConfig.xml.
+<bean>		class="com.kumari.khusi._10BeanFactoryPostProcessor._1custom._1firstExample.DemoBeanFactoryPostProcessor">
+</bean>
+ 
+Order in BeanFactoryPostProcessor
+Ordered  interface
+
+
+1)Custom
+	Without Order
+	With Order
+2)Predefined BeanFactoryPostProcessor
+	PropertyOverrideConfigurerBeanFactoryPostProcessor
+	PropertyPlaceholderConfigurerBeanFactoryPostProcessor
+		Example:
+		spring.properties
+		welcomeNoteFromFile = Welcome to the restaurant via spring.properties
+	
+		<bean id="restaurantBean" class="com.kumari.khusi._10BeanFactoryPostProcessor._2predefined._propertyPlaceholderConfigurer.Restaurant"
+		init-method="initRestaurant" destroy-method="destroyRestaurant">
+			<property name="welcomeNote" value="${welcomeNoteFromFile}"></property>
+		</bean>
+		
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<value>classpath:/com/kumari/khusi/_10BeanFactoryPostProcessor/_2predefined/_propertyPlaceholderConfigurer/mySpring.properties
+				</value>
+			</property>
+		</bean> 
+	
+Sequence of Execution
+	BeanFactoryPostProcessor
+	BeanFactory/ApplicationCntext initialized
+	Singleton Beans initialized 
+	
+
+
+Factory Pattern
+
+Object  <----------- Object factory
+Object factory is responsible to produce objects.
+Object factory reads from configurations file, some metadatas.
+Factory pattern is blueprint of BeanFactory to create or produce a new objects.
+
+Object  <-----------  BeanFactory
+|
+spring.xml

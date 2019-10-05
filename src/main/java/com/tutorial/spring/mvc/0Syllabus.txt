@@ -1,0 +1,45 @@
+Introduction to Spring MVC
+Spring MVC Architecture
+Installation and setup
+First Spring MVC Web Application
+
+TWO WAY OF WRITING CONTROLLER CLASS
+Annotations
+	@Controller
+	@RequestMapping("/welcome/countryName/userName")
+				   ("/welcome/countryName/{userName}")
+				   ("/welcome/{countryName}/{userName}")
+	@PathVariable("userName") //for userName
+		@PathVariable Map<String, String> //for countryName, userName
+	
+From validation
+	@RequestParam
+	@ModelAttribute at method() level argument
+		@ModelAttribute on top of the method()
+		
+		('BindingResult' at method() level argument: Catch all binding related errors)
+		
+	@InitBinder
+	
+	@Size(min=2, max=30)
+		@valid
+	@Pattern(regexp="[^0-9]*")
+	@Past
+	@Future
+	@Max
+	@Min
+	@NotNull
+	@NotEmpty
+
+Custom form validation Annotation
+	//Inside Interface
+	@Documented
+	@Constraint(validatedBy = { HobbyValidator.class })
+	@Target({ ElementType.FIELD })
+	@Retention(RetentionPolicy.RUNTIME)
+	
+Interceptor
+
+Internationalization and Localization
+Exception Handling
+Web Service

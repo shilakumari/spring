@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean id="triangle"
+		class="com.kumari.khusi._17eventHandling._2customEvent.Triangle"
+		autowire="byName">
+		<!-- <property name="pointA" ref="pointA"> </property> <property name="pointB" 
+			ref="pointB"> </property> <property name="pointC" ref="pointC"></property> -->
+	</bean>
+
+	<bean id="pointA"
+		class="com.kumari.khusi._17eventHandling._2customEvent.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<bean id="pointB"
+		class="com.kumari.khusi._17eventHandling._2customEvent.Point">
+		<property name="x" value="10"></property>
+		<property name="y" value="0"></property>
+	</bean>
+	<bean id="pointC"
+		class="com.kumari.khusi._17eventHandling._2customEvent.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="15"></property>
+	</bean>
+	<!-- <context:annotation-config /> -->
+	<context:component-scan
+		base-package="com.kumari.khusi._17eventHandling._2customEvent" />
+</beans>  

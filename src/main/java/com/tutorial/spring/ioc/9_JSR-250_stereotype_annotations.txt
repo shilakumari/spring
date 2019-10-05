@@ -1,0 +1,53 @@
+Annotation
+@Required annotation
+	RequiredAnnotationBeanPostProcessor
+
+@Autowired annotation : byType>byName
+ 	AutowiredAnnotationBeanPostProcessor
+ 
+@Qualifier annotation
+	qualifier property
+	@Qualifier(name="pointC")
+<context:annotation-config />: for all Annotation BeanPostProcessor
+
+
+JSR-250 Annotations:
+Java Specification Standard annotation
+	JSR-250 annotations Which are applied for different technologies and different frameworks
+	JSR-250 is a Java Specification Request with the objective 
+		to develop annotations for common semantic concepts in the Java SE and Java EE platforms 
+	The JSR 250 specification includes annotations for injecting a resource into an end-point implementation class, 
+		and for managing application life-cycle. 
+
+@Resource Annotation
+	Standard dependency injection by name. 
+@Resource :byName
+@Resource(name="pointC"):byName
+
+
+If we are writing our own init() & destroy() method, then mention annotation just above methods as:  
+	@PostConstruct & 
+	@PreDestroy
+	and write registerShutDownHook() in "TestSpringProject.java".
+
+
+
+
+
+
+Stereotype Annotations: 
+	Specify what role is bean doing. 
+
+@Component
+	For model classes like Employee, Model
+@Controller
+	To get request and give response
+@Service
+	Called from controllern for business logic
+@Repository
+	Call from Service for Database operations
+
+<context:component-scan base-package="com.asd.className"/>
+<context:component-scan base-package="com.asd.*"/>
+
+If we want many bean of one type then we have to use XML configuration.

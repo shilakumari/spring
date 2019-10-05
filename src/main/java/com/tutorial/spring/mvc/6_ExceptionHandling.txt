@@ -1,0 +1,66 @@
+Exception Handling
+ 
+If exception is not handled in request handler and exception occur:
+	BY default an error page come with 
+		Error status code
+		Exception Message
+		Exception stack trace
+	Default error page is not user friendly.
+	
+While processing the request method throws an exception such as NullPointer, ResourceNotFound or any error
+then we have to handle Exceptions.
+
+Customized error page: to handle Exceptions
+	1)include a Jsp page 'NullPointerException.jsp'
+	2)include a method with @ExceptionHandler(value="NullPointerException.class") annotation on its top, in Controller class:
+		@ExceptionHandler(value=NullPointerException.class)
+		public String handleNullPointerException(Exception e){
+			//logging Null Pointer Exception
+			System.out.println("NullPointerException occured: "+e);
+			return "NullPointerException";
+		}
+
+
+
+
+The exception handler method only applicable for the Controller class where it is present. 
+It can not use by other controller classes those have thrown exceptions to show this messages.
+
+To resolve this problem, Spring MVC Framework says:
+	Include a class in your application  with @ControllerAdvice annotation on top, 
+	then whatever exceptionHandler methods we put in this class, is applicable for all controller class.
+
+For global exception handling	
+	1)@ControllerAdvice annotation 
+	2)simpleMappingExceptionResolver bean in dispatcherServlet.xml
+		<bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+			<property name="exceptionMappings">
+				<map>
+					<entry key="NullPointerException" value="nullPointerException" />
+					<entry key="IOException" value="ioException" />
+				</map>
+			</property>
+			<property name="defaultErrorView" value="exception" />
+			<!-- Name of logger to use to log exceptions. Unset by default, so logging disabled. -->
+			<property name="warnLogCategory" value="MVCLogger" />
+	   </bean> 
+
+
+  
+
+
+Getting response status code
+put below annotation on top of the exception handler method
+@ResponseStatus(value="HttpStatus.INTERNAL_SERVER_ERROR")
+
+HttpHeaders
+	GoogleChrome extension
+	
+Common Status codes 
+	200 OK:
+	404 Not Found(Requested resource is not available)
+	500 Internal Server Error(An unexpected condition/error occured while processing a request)
+	503 Service Unavailable currently(because it is overloaded or down for maintainance)
+	
+	
+	
