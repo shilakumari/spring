@@ -8,13 +8,15 @@
 
 	<context:annotation-config />
 	<context:component-scan
-		base-package="com.springdata._4UsingHibernateWithSpring.**" />
+		base-package="com.tutorial.spring.dataSupport._4UsingHibernateWithSpring.**" />
+	
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations"
-			value="/com/springdata/_4UsingHibernateWithSpring/mySpring.properties">
+			value="/com/tutorial/spring/dataSupport/_2usingSpringAndDataSourceConfiguration/mySpring.properties">
 		</property>
 	</bean>
+
 
 	<bean id="dataSource2"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -25,10 +27,10 @@
 
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource2"></property>
-		<property name="packagesToScan" value="com.springdata._4UsingHibernateWithSpring"></property>
+		<property name="packagesToScan" value="com.tutorial.spring.dataSupport._4UsingHibernateWithSpring"></property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="dialect">org.hibernate.dialect.DerbyDialect</prop>
+				<prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
 			</props>
 		</property>
 	</bean>

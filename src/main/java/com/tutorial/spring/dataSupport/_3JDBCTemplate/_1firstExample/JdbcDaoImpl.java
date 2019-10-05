@@ -86,7 +86,7 @@ public class JdbcDaoImpl {
 		return jdbcTemplate2.queryForObject(sqlQuery, Integer.class);
 	}
 
-	//@Autowired
+	// @Autowired
 	public void setDataSource2(DataSource dataSource2) {
 		jdbcTemplate.setDataSource(dataSource2);
 		this.dataSource2 = dataSource2;
@@ -131,12 +131,11 @@ public class JdbcDaoImpl {
 		return jdbcTemplate2.query(sqlQuery, new CircleMapper());
 	}
 
-	public List<Circle> getAllCircles(Circle circle) {
+	public List<Circle> getAllCircles(int id, String name) {
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource2);
 		String sqlQuery = "SELECT * FROM circle where id=:circleId and name=:circleName";
 
-		SqlParameterSource sqlParameterSource = new MapSqlParameterSource("circleId", circle.getId())
-				.addValue("circleName", circle.getName());
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource("circleId", id).addValue("circleName", name);
 		return namedParameterJdbcTemplate.query(sqlQuery, sqlParameterSource, new CircleMapper());
 	}
 }

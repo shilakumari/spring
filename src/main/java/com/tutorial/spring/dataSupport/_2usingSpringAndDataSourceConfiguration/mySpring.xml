@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans.xsd
    http://www.springframework.org/schema/context
    http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="com.springdata._2usingSpringAndDataSourceConfiguration.**" />
+	<context:component-scan
+		base-package="com.tutorial.spring.dataSupport._2usingSpringAndDataSourceConfiguration.**" />
 
 
 	<bean id="myDataSource"
-		class="com.springdata._2usingSpringAndDataSourceConfiguration.MyDataSource">
-		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"></property>
-		<property name="url" value="jdbc:derby://localhost:1527//dbSpringData"></property>
+		class="com.tutorial.spring.dataSupport._2usingSpringAndDataSourceConfiguration.MyDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/durgadb?user=root&amp;password=root123"></property>
 	</bean>
-	
-	
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"></property>
-		<property name="url" value="jdbc:derby://localhost:1527//dbSpringData"></property>
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/durgadb?user=root&amp;password=root123"></property>
 	</bean>
 
-	<bean id="dbcpDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"></property>
-		<property name="url" value="jdbc:derby://localhost:1527//dbSpringData"></property>
+	<bean id="dbcpDataSource"
+		class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/durgadb?user=root&amp;password=root123"></property>
+
 		<property name="initialSize" value="2"></property>
 		<property name="maxTotal" value="5"></property>
 	</bean>
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="/com/springdata/_2usingSpringAndDataSourceConfiguration/mySpring.properties">
+		<property name="locations"
+			value="/com/tutorial/spring/dataSupport/_2usingSpringAndDataSourceConfiguration/mySpring.properties">
 		</property>
 	</bean>
 
@@ -42,12 +51,10 @@
 		<property name="driverClassName" value="${driverClassName}"></property>
 		<property name="url" value="${url}"></property>
 	</bean>
-
-
-<bean id="myJdbcDaoSupportImpl"
-		class="com.springdata._2usingSpringAndDataSourceConfiguration.MyJdbcDaoSupportImpl">
+	<bean id="myJdbcDaoSupportImpl"
+		class="com.tutorial.spring.dataSupport._2usingSpringAndDataSourceConfiguration.MyJdbcDaoSupportImpl">
 		<property name="dataSource" ref="dataSource2"></property>
-
 	</bean>
+
 
 </beans>  

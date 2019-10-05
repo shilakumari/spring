@@ -19,7 +19,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/interceptorFormValidation/admissionForm10.html" />
-			<bean class="com.demo._4Interceptor.DayOfWeekBasedAccessInterceptor" />
+			<bean class="com.tutorial.spring.mvc._4Interceptor.DayOfWeekBasedAccessInterceptor" />
 		</mvc:interceptor>
 
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">

@@ -1,5 +1,4 @@
-Introduction to Spring Data and Setting Up
-
+Database Setting Up
 
 Apache Derby
 It is very lightweight in memory database. 
@@ -27,5 +26,3 @@ Setup database derby
 					 	insert into circle values(1, 'First circle');
 			(2) In embedded mode
 
-
-			

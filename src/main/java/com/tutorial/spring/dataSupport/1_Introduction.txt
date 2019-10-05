@@ -1,12 +1,11 @@
-Introduction to Spring Data and Setting Up
-
-
+Introduction to Spring Data Support
 
 
 
 Using JDBC without Spring
-Example:com.springdata._1usingJDBCWithoutSpring.JdbcDemo
-
+	Without DataSource
+	With DataSource
+Example:com/tutorial/spring/dataSupport/_1usingJDBCWithoutSpring/JDBCWithoutSpringDemo.java
 
 
 
@@ -22,10 +21,6 @@ Example:com.springdata._2usingSpringAndDataSourceConfiguration.UsingSprinDemo
 	@Autowired
 	DataSource dataSource2;
 
-<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	<property name="locations" value="/com/springdata/_2usingSpringAndDataSourceConfiguration/mySpring.properties"></property>
-</bean>
-
 Using dbcp data source
 (dbcp: database connection pool)
 Advantages - we can add additional pooling related properties.
@@ -38,10 +33,23 @@ To get initial maximum connection then use - maxTotal.
 		<property name="initialSize" value="2"></property>
 		<property name="maxTotal" value="5"></property>
 </bean>
-
 To Use dbcp data source we need following to jars:
 	commons-dbcp2-2.6.0.jar
 	commons-pool2-2.6.2.jar
+
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations" value="/com/springdata/_2usingSpringAndDataSourceConfiguration/mySpring.properties"></property>
+</bean>
+
+public class MyJdbcDaoSupportImpl extends JdbcDaoSupport {
+	public int getCircleCount() {
+		return this.getJdbcTemplate().queryForObject("Select count(*) from circle", Integer.class);
+	}
+}
+
+
+
+
 
 
 
@@ -68,13 +76,7 @@ SimpleJdbcTemplate: suppoert both ? & named parameter & many more features also 
 
 
 
-
-
-
-DAO Support Classes
-
-
-
+DAO Support Classes???
 
 
 Using HIbernate with Spring

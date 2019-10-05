@@ -1,41 +1,21 @@
-package com.tutorial.spring.dataSupport._2usingSpringAndDataSourceConfiguration;
+package com.tutorial.spring.dataSupport._1usingJDBCWithoutSpring;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-@Component
-public class JdbcDaoImpl {
-
-	@Autowired
-	MyDataSource myDataSource;
-
-	@Autowired
-	DataSource dataSource;
-
-	@Autowired
-	BasicDataSource dbcpDataSource;
-
-	@Autowired
-	DataSource dataSource2;
+public class JDBCWithoutSpringDaoImpl {
 
 	public Circle getCircleById(int circleId) {
 		Circle circle = null;
 		Connection con = null;
 		try {
-			// con = myDataSource.getConnection();
-			// con = dataSource.getConnection();
-			// con = dbcpDataSource.getConnection();
-			con = dataSource2.getConnection();
-
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver).newInstance();
+			con =DriverManager.getConnection("jdbc:mysql://localhost:3306/durgadb", "root", "root123");
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM circle where id=?");
 			ps.setInt(1, circleId);
 			ResultSet rs = ps.executeQuery();
@@ -62,10 +42,9 @@ public class JdbcDaoImpl {
 		ArrayList<Circle> circleList = null;
 		Connection con = null;
 		try {
-			// con = myDataSource.getConnection();
-			// con = dataSource.getConnection();
-			// con = dbcpDataSource.getConnection();
-			con = dataSource2.getConnection();
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver).newInstance();
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/durgadb", "root", "root123");
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM circle");
 			ResultSet rs = ps.executeQuery();
 			circleList = new ArrayList<Circle>();
@@ -87,26 +66,51 @@ public class JdbcDaoImpl {
 			} catch (SQLException e) {
 			}
 		}
+
 		return circleList;
 	}
 
-	public int getCircleCount() {
-		int circleCount = 0;
-
+	public Circle getCircleById2(int circleId) {
+		Circle circle = null;
 		Connection con = null;
 		try {
-			// con = myDataSource.getConnection();
-			// con = dataSource.getConnection();
-			// con = dbcpDataSource.getConnection();
-			con = dataSource2.getConnection();
-
-			// PreparedStatement ps = con.prepareStatement("SELECT count(*) X FROM circle");
-			PreparedStatement ps = con.prepareStatement("SELECT count(*) AS countCircle FROM circle");
-
+			con=MyDataSource.getConnection();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM circle where id=?");
+			ps.setInt(1, circleId);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				// circleCount = rs.getInt("1");
-				circleCount = rs.getInt("countCircle");
+				circle = new Circle();
+				circle.setId(rs.getInt("id"));
+				circle.setName(rs.getString("name"));
+			}
+			rs.close();
+			ps.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return circle;
+	}
+
+	public ArrayList<Circle> getAllCircle2() {
+		ArrayList<Circle> circleList = null;
+		Connection con = null;
+		try {
+			con=MyDataSource.getConnection();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM circle");
+			ResultSet rs = ps.executeQuery();
+			circleList = new ArrayList<Circle>();
+			Circle circle = null;
+			while (rs.next()) {
+				circle = new Circle();
+				circle.setId(rs.getInt("id"));
+				circle.setName(rs.getString("name"));
+
+				circleList.add(circle);
 			}
 			rs.close();
 			ps.close();
@@ -119,7 +123,7 @@ public class JdbcDaoImpl {
 			}
 		}
 
-		return circleCount;
+		return circleList;
 	}
 
 }

@@ -15,7 +15,7 @@ public class UsingSprinDemo {
 
 	private static void m2() {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"/com/springdata/_2usingSpringAndDataSourceConfiguration/mySpring.xml");
+				"/com/tutorial/spring/dataSupport/_2usingSpringAndDataSourceConfiguration/mySpring.xml");
 		MyJdbcDaoSupportImpl myJdbcDaoSupportImpl = (MyJdbcDaoSupportImpl) context.getBean("myJdbcDaoSupportImpl");
 
 		int circleCount = myJdbcDaoSupportImpl.getCircleCount();
@@ -24,7 +24,7 @@ public class UsingSprinDemo {
 
 	private static void m1() {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"/com/springdata/_2usingSpringAndDataSourceConfiguration/mySpring.xml");
+				"/com/tutorial/spring/dataSupport/_2usingSpringAndDataSourceConfiguration/mySpring.xml");
 		JdbcDaoImpl jdbcDaoImpl = (JdbcDaoImpl) context.getBean("jdbcDaoImpl");
 
 		int circleId = 1;
@@ -32,10 +32,12 @@ public class UsingSprinDemo {
 		System.out.println(circle.getId() + "  " + circle.getName());
 		System.out.println();
 
-		ArrayList<Circle> circleList = new JdbcDaoImpl().getAllCircle();
+		// ArrayList<Circle> circleList = new JdbcDaoImpl().getAllCircle();
+		ArrayList<Circle> circleList = jdbcDaoImpl.getAllCircle();
 		for (Circle c : circleList) {
 			System.out.println(c.getId() + "  " + c.getName());
 		}
+		System.out.println();
 
 		int circleCount = jdbcDaoImpl.getCircleCount();
 		System.out.println(circleCount);

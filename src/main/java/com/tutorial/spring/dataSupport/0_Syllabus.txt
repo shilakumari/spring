@@ -1,18 +1,14 @@
-Introduction to Spring Data and Setting Up
+Introduction
+Setting Up
 Using JDBC without Spring
-
-
 Adding Spring and DataSource Configuration
- 
- 
 Using JdbcTemplate
 	Returning Other Data-types from JdbcTemplate 
 	Performing Write Operations with JdbcTemplate 
 	Implementing RowMapper interface
-
+	Using NamedParameter
 
 DAO Support Classes
-
 
 Using HIbernate with Spring
   
