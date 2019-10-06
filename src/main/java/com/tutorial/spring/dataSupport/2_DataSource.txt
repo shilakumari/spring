@@ -1,0 +1,42 @@
+Adding Spring and DataSource Configuration
+Example:com.springdata._2usingSpringAndDataSourceConfiguration.UsingSprinDemo
+	@Autowired
+	MyDataSource myDataSource;
+	@Autowired
+	DataSource dataSource;
+	@Autowired
+	BasicDataSource dbcpDataSource;
+	@Autowired
+	DataSource dataSource2;
+
+Using dbcp data source
+(dbcp: database connection pool)
+Advantages - we can add additional pooling related properties.
+To get initial minimum connection or initial size of connection then use - initialSize.
+To get initial maximum connection then use - maxTotal.
+
+<bean id="dbcpDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"></property>
+		<property name="url" value="jdbc:derby://localhost:1527//dbSpringData"></property>
+		<property name="initialSize" value="2"></property>
+		<property name="maxTotal" value="5"></property>
+</bean>
+To Use dbcp data source we need following to jars:
+	commons-dbcp2-2.6.0.jar
+	commons-pool2-2.6.2.jar
+
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations" value="/com/springdata/_2usingSpringAndDataSourceConfiguration/mySpring.properties"></property>
+</bean>
+
+public class MyJdbcDaoSupportImpl extends JdbcDaoSupport {
+	public int getCircleCount() {
+		return this.getJdbcTemplate().queryForObject("Select count(*) from circle", Integer.class);
+	}
+}
+
+
+
+
+
+

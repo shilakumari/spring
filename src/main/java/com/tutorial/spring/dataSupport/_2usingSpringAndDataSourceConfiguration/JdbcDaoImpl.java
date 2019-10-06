@@ -33,7 +33,7 @@ public class JdbcDaoImpl {
 		try {
 			// con = myDataSource.getConnection();
 			// con = dataSource.getConnection();
-			// con = dbcpDataSource.getConnection();
+		//	 con = dbcpDataSource.getConnection();
 			con = dataSource2.getConnection();
 
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM circle where id=?");
@@ -64,7 +64,7 @@ public class JdbcDaoImpl {
 		try {
 			// con = myDataSource.getConnection();
 			// con = dataSource.getConnection();
-			// con = dbcpDataSource.getConnection();
+			 //con = dbcpDataSource.getConnection();
 			con = dataSource2.getConnection();
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM circle");
 			ResultSet rs = ps.executeQuery();

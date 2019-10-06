@@ -27,6 +27,9 @@ public class JdbcDaoImpl {
 	@Autowired
 	JdbcTemplate jdbcTemplate2;
 
+	@Autowired
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
 	public int getCircleCount() {
 		int circleCount = 0;
 		Connection con = null;
@@ -91,14 +94,17 @@ public class JdbcDaoImpl {
 		jdbcTemplate.setDataSource(dataSource2);
 		this.dataSource2 = dataSource2;
 	}
-
+	
 	public String getCircleNameUsingJdbcTemplate(int id) {
 		String sqlQuery = "SELECT name FROM circle where id=?";
 		return jdbcTemplate2.queryForObject(sqlQuery, new Object[] { id }, String.class);
 	}
 
+	
+	
+	
 	public void createTriangle() {
-		String sqlQuery = "CREATE TABLE TRIANGLE (ID INTEGER,NAME VARCHAR(55))";
+		String sqlQuery = "CREATE TABLE TRIANGLE2 (ID INTEGER,NAME VARCHAR(55))";
 		jdbcTemplate2.execute(sqlQuery);
 	}
 
@@ -107,6 +113,13 @@ public class JdbcDaoImpl {
 		jdbcTemplate2.update(sqlQuery, new Object[] { circle.getId(), circle.getName() });
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	public Circle getCircleForId(int id) {
 		String sqlQuery = "SELECT * FROM circle where id=?";
 		return jdbcTemplate2.queryForObject(sqlQuery, new Object[] { id }, new CircleMapper());
@@ -132,9 +145,7 @@ public class JdbcDaoImpl {
 	}
 
 	public List<Circle> getAllCircles(int id, String name) {
-		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource2);
 		String sqlQuery = "SELECT * FROM circle where id=:circleId and name=:circleName";
-
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource("circleId", id).addValue("circleName", name);
 		return namedParameterJdbcTemplate.query(sqlQuery, sqlParameterSource, new CircleMapper());
 	}

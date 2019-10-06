@@ -20,6 +20,8 @@
 			value="jdbc:mysql://localhost:3306/durgadb?user=root&amp;password=root123"></property>
 	</bean>
 
+
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
@@ -51,6 +53,8 @@
 		<property name="driverClassName" value="${driverClassName}"></property>
 		<property name="url" value="${url}"></property>
 	</bean>
+	
+	
 	<bean id="myJdbcDaoSupportImpl"
 		class="com.tutorial.spring.dataSupport._2usingSpringAndDataSourceConfiguration.MyJdbcDaoSupportImpl">
 		<property name="dataSource" ref="dataSource2"></property>

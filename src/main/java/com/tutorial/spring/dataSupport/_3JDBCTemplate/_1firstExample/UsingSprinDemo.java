@@ -16,13 +16,13 @@ public class UsingSprinDemo {
 
 	public static void main(String[] args) {
 		// m1();
-		//m2();
+		// m2();
 		// m3();
-		 m4();
+		m4();
 	}
 
 	private static void m4() {
-		List<Circle> list = jdbcDaoImpl.getAllCircles(3,"circle3");
+		List<Circle> list = jdbcDaoImpl.getAllCircles(3, "circle3");
 		for (Circle c : list) {
 			System.out.println(c.getId() + " " + c.getName());
 		}
@@ -31,7 +31,7 @@ public class UsingSprinDemo {
 	private static void m3() {
 		int circleId = jdbcDaoImpl.getCircleForId(1).getId();
 		System.out.println("getCircleForId(1): " + circleId);
-		
+
 		String circleName = jdbcDaoImpl.getCircleForId(1).getName();
 		System.out.println(circleName);
 
@@ -41,9 +41,10 @@ public class UsingSprinDemo {
 
 	private static void m2() {
 		jdbcDaoImpl.createTriangle();
+
 		Circle circle = new Circle();
-		circle.setId(4);
-		circle.setName("circle 4");
+		circle.setId(5);
+		circle.setName("circle5");
 		jdbcDaoImpl.insertCircle(circle);
 	}
 

@@ -9,8 +9,8 @@ public class UsingSprinDemo {
 
 	public static void main(String[] args) {
 
-		// m1();
-		m2();
+		 m1();
+		//m2();
 	}
 
 	private static void m2() {

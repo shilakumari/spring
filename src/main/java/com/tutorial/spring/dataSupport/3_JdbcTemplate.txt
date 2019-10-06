@@ -1,0 +1,27 @@
+Using JdbcTemplate
+Example:com.springdata._3JDBCTemplate._1firstExample.UsingSprinDemo.java
+<bean id="jdbcTemplate2" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
+		<property name="dataSource" ref="dataSource2"></property>
+</bean>
+
+queryForObject()
+
+Returning Other Data-types from JdbcTemplate 
+Parameterized query using JdbcTemplate
+Performing Write Operations with JdbcTemplate 
+	update()- Used for insert, update,delete, call stored procedure
+	execute()-For DDL query
+Implementing RowMapper interface & use JdbcTemplate
+: Provides logic for mapping.
+Example:com.springdata._4ImplementingRowMapper.UsingSprinDemo.java
+
+
+JdbcTemplate: Support ? parameter only
+NamedParameterJDBCTemplate: support named parameter only
+SimpleJdbcTemplate: suppoert both ? & named parameter & many more features also present
+
+
+
+DAO Support Classes???
+
+
