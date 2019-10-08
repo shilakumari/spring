@@ -19,3 +19,19 @@
 	CompileTime, ClassLoading time, Runtime
 16)Controller in spring is...
 	An interface
+
+Libraries vs Framework
+Library
+	Reusable
+	Well defined API
+	Doesn't care when and how you use it
+	May be use for wide range of diff application
+	Developer have full control
+	Developer calls library
+Framework
+	Provide patterns for common task
+	Developer has less control than in case of using library
+	The framework calls developer
+	Provides simplicity but we loose flexiblity
+	
+	 
