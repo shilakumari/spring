@@ -38,12 +38,13 @@ public ModelAndView helloWorld( @PathVariable Map<String, String> pathVars){
 
 @RequestParam annotation 
 	@RequestMapping(value="submitAdmissionForm.html", method=RequestMethod.POST)
-	public ModelAndView submitAdmissionForm(@RequestParam("studentName") String name,@RequestParam("studentHobby") String hobby){}
+	public ModelAndView submitAdmissionForm(@RequestParam("studentName") String name,@RequestParam("studentHobby") 
+		String hobby){}
 
-We can set the "default value" for @RequestParam(value=””) annotation.
+We can set the "default value" for @RequestParam(value="", defaultValue = "Guest") annotation.
 	@RequestMapping(value = "/submitAdmissionForm2.html", method = {RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView submitAdmissionForm2(@RequestParam(value = "studentName", defaultValue = "Guest") String name
-										,@RequestParam("studentHobby") String hobby){}
+	public ModelAndView submitAdmissionForm2(@RequestParam(value = "studentName", defaultValue = "Guest") String name,
+										@RequestParam("studentHobby") String hobby){}
 
 	@RequestMapping(value = "/submitAdmissionForm3.html", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView submitAdmissionForm3(@RequestParam Map<String, String> requestParamMap){}
@@ -136,7 +137,7 @@ Property editors concept
 example:
 we provided date format yyyy/mm/dd, if we provide some other format(yyyy****mm**dd) then spring MVC failed to bind.
  
-Question: How to allow user to provide date in some customized format of your choice as (yyyy****mm*****dd)?
+Question: How to allow user to provide date in some customized format of your choice as (yyyy****mm***	*dd)?
 Ans: using "propertyEditor" method provided by the spring MVC.
 
 @InitBinder
@@ -177,6 +178,7 @@ StudentNameEditor.java
 	}
 When you will submit the admission form, Spring MVC will use setAsText function of this class, 
 	before performing data binding task for name property of student object.
-Whatever value you will provide to setValue(), Spring MVC will use the same value to perform data binding task for name property.
+Whatever value you will provide to setValue(), Spring MVC will use the same value to perform data binding task for 
+	name property.
 
 

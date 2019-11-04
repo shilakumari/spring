@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
@@ -8,34 +9,46 @@
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 
-	<bean id="circleBean" class="com.aop._1BasicExample._1usingXML.Circle">
+	<bean id="circleBean"
+		class="com.aop._1BasicExample._1usingXML.Circle">
 		<property name="name" value="Circle Name" />
 	</bean>
-	<bean id="triangleBean" class="com.aop._1BasicExample._1usingXML.Triangle">
+	<bean id="triangleBean"
+		class="com.aop._1BasicExample._1usingXML.Triangle">
 		<property name="name" value="Triangle Name" />
 	</bean>
 
-	<bean id="shapeServiceBean" class="com.aop._1BasicExample._1usingXML.ShapeService"
+	<bean id="shapeServiceBean"
+		class="com.aop._1BasicExample._1usingXML.ShapeService"
 		autowire="byType">
 	</bean>
 
-	<bean id="mySampleAspectBean" class="com.aop._1BasicExample._1usingXML.MySampleAspect">
+	<bean id="mySampleAspectBean"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect">
 	</bean>
-	<bean id="mySampleAspectBean2" class="com.aop._1BasicExample._1usingXML.MySampleAspect2">
+	<bean id="mySampleAspectBean2"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect2">
 	</bean>
-	<bean id="mySampleAspectBean3" class="com.aop._1BasicExample._1usingXML.MySampleAspect3">
+	<bean id="mySampleAspectBean3"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect3">
 	</bean>
-	<bean id="mySampleAspectBean4" class="com.aop._1BasicExample._1usingXML.MySampleAspect4">
+	<bean id="mySampleAspectBean4"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect4">
 	</bean>
-	<bean id="mySampleAspectBean5" class="com.aop._1BasicExample._1usingXML.MySampleAspect5">
+	<bean id="mySampleAspectBean5"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect5">
 	</bean>
-	<bean id="mySampleAspectBean6" class="com.aop._1BasicExample._1usingXML.MySampleAspect6">
+	<bean id="mySampleAspectBean6"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect6">
 	</bean>
-	<bean id="mySampleAspectBean7" class="com.aop._1BasicExample._1usingXML.MySampleAspect7">
+	<bean id="mySampleAspectBean7"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect7">
 	</bean>
-	<bean id="mySampleAspectBean8" class="com.aop._1BasicExample._1usingXML.MySampleAspect8">
+	<bean id="mySampleAspectBean8"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect8">
 	</bean>
-	<bean id="mySampleAspectBean9" class="com.aop._1BasicExample._1usingXML.MySampleAspect9">
+	<bean id="mySampleAspectBean9"
+		class="com.aop._1BasicExample._1usingXML.MySampleAspect9">
 	</bean>
 	<aop:aspectj-autoproxy />
 
@@ -45,7 +58,8 @@
 			</aop:aspect> -->
 
 		<aop:aspect id="abc" ref="mySampleAspectBean9">
-			<aop:around method="myAroundAdvice" pointcut="execution(* getName())" />
+			<aop:around method="myAroundAdvice"
+				pointcut="execution(* getName())" />
 			<!-- <aop:before method="" arg-names="" /> -->
 		</aop:aspect>
 	</aop:config>

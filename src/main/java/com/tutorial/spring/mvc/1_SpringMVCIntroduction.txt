@@ -8,7 +8,8 @@ MVC stands for Model View Controller architecture.
 It says application should be divided into the following three components:
 	model - represents data
 	view - represents UI part
-	controller - manage the application flow,makes a call to some sort of service producing model and then passes to the model to the view.
+	controller - manage the application flow, makes a call to some sort of service producing model and then 
+				 passes to the model to the view.
 
 
 A web application developed using Servlet technology 
@@ -93,25 +94,25 @@ First Spring MVC Web Application
 
 1) modify web.xml file
 <web-app>
-<servlet>
-<servlet-name>spring-dispatcher</servlet-name>
-<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-</servlet>
+ <servlet>
+	<servlet-name>spring-dispatcher</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+ </servlet>
 
-<servlet-mapping>
-<servlet-name>spring-dispatcher</servlet-name>
-<url-pattern>/</url-pattern>
-</servlet-mapping>
+ <servlet-mapping>
+	<servlet-name>spring-dispatcher</servlet-name>
+	<url-pattern>/</url-pattern>
+ </servlet-mapping>
 </web-app>
 
 All URL request to the web application should be mapped to the spring mvc framework for the processing.
-
+	
 <url-pattern>/</url-pattern>
-Any url request mapped by "/" to the front controller(or, to the Dispatcher servlet).
+	Any URL request mapped by "/" to the front controller(or, to the Dispatcher servlet).
 
 <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-Here, taking complete responsibility to processing the url request. 
-And sending back to the client's browser (with the help of all helper, those are around it).
+	Here, taking complete responsibility to processing the url request. 
+	And sending back to the client's browser (with the help of all helper, those are around it).
 
 
 2) Create spring-dispatcher-servlet.xml
@@ -147,7 +148,8 @@ class HelloController extends AbstractController{
 		return mobileAndView;
 }}
 
-HandlerMapping matches the incoming url pattern with <bean> name of the Controller class which provided in "spring-dispatcher-servlet.xml".
+HandlerMapping matches the incoming url pattern with <bean> name of the Controller class which provided in 
+	"spring-dispatcher-servlet.xml".
 If its find any bean pattern matching with the incoming url request, 
 	then it suggest to front controller to make a call to that controller class.
 

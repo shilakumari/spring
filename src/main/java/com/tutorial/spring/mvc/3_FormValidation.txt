@@ -27,12 +27,12 @@ Custom error messages:
 	We can also use "message" attribute inside "@Size" annotation.
 		@Size(min = 2, max = 20, message = "Please enter the value of employee hobby field between 2 to 20 characters")
 		private String hobby;
-	We can set “min” and “max” value to the “message”
+	We can set "min" and "max" value to the "message"
 		@Size(min = 2, max = 20, message = "Please enter the value of employee hobby field between {min} to {max} characters")
 
 
 Customizing error messages using Spring MessageSource
-	Using “properties” file such as “employeemessages.properties” 
+	Using ï¿½propertiesï¿½ file such as ï¿½employeemessages.propertiesï¿½ 
 	Size.emp.hobby=please enter the value for hobby between 2 to 20 characters.
 	or
 	Size.emp.hobby=please enter the value for{0} between {2} to {1} characters.
@@ -68,7 +68,7 @@ Spring MVC would search for a key matching with this key pattern sequence
 	Example: In this case, size must be 2 and 20(default error message for the Size constraint)
 
  
-Using “properties” file such as “employeemessages.properties” 
+Using ï¿½propertiesï¿½ file such as ï¿½employeemessages.propertiesï¿½ 
 	Size.emp.hobby=please enter the value for {0} between {2} to {1} characters.
 Important points:
 	(1) Placeholder {0} is always replaced dynamically by Spring MVC with the name of field for which violation occurs.
